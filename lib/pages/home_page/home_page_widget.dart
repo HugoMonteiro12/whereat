@@ -68,7 +68,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               Stack(
                 children: [
                   Align(
-                    alignment: const AlignmentDirectional(0.00, -1.00),
+                    alignment: const AlignmentDirectional(0.0, -1.0),
                     child: Image.network(
                       'https://images.unsplash.com/photo-1546514355-7fdc90ccbd03?w=1280&h=720',
                       width: double.infinity,
@@ -77,7 +77,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     ),
                   ),
                   Align(
-                    alignment: const AlignmentDirectional(0.00, -0.90),
+                    alignment: const AlignmentDirectional(0.0, -0.9),
                     child: GradientText(
                       'Explore the world around you',
                       textAlign: TextAlign.center,
@@ -97,10 +97,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 ],
               ),
               Align(
-                alignment: const AlignmentDirectional(0.00, 1.00),
+                alignment: const AlignmentDirectional(0.0, 1.0),
                 child: Container(
                   width: double.infinity,
-                  height: MediaQuery.sizeOf(context).height * 0.75,
+                  height: MediaQuery.sizeOf(context).height * 0.65,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: const BorderRadius.only(
@@ -112,7 +112,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     shape: BoxShape.rectangle,
                   ),
                   child: Align(
-                    alignment: const AlignmentDirectional(0.00, 0.70),
+                    alignment: const AlignmentDirectional(0.0, 0.7),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -120,10 +120,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Align(
-                            alignment: const AlignmentDirectional(0.00, -0.60),
+                            alignment: const AlignmentDirectional(0.0, -0.6),
                             child: Padding(
-                              padding: const EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 10.0, 10.0, 10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Text(
                                 'Upcoming Events',
                                 style: FlutterFlowTheme.of(context)
@@ -137,21 +136,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.00, 0.00),
+                            alignment: const AlignmentDirectional(0.0, 0.0),
                             child: Container(
                               decoration: const BoxDecoration(),
                               child: Stack(
                                 children: [
                                   Align(
-                                    alignment: const AlignmentDirectional(0.00, 1.00),
+                                    alignment: const AlignmentDirectional(0.0, 1.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Card(
                                             clipBehavior:
                                                 Clip.antiAliasWithSaveLayer,
@@ -191,12 +188,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   ),
                                                   Padding(
                                                     padding:
-                                                        const EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                16.0,
-                                                                16.0,
-                                                                16.0,
-                                                                16.0),
+                                                        const EdgeInsets.all(16.0),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.max,
@@ -204,7 +196,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         Align(
                                                           alignment:
                                                               const AlignmentDirectional(
-                                                                  -1.00, 0.00),
+                                                                  -1.0, 0.0),
                                                           child: Text(
                                                             'Event Title',
                                                             style: FlutterFlowTheme
@@ -222,7 +214,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                         Align(
                                                           alignment:
                                                               const AlignmentDirectional(
-                                                                  -1.00, 0.00),
+                                                                  -1.0, 0.0),
                                                           child: Text(
                                                             'Location',
                                                             style: FlutterFlowTheme
@@ -246,9 +238,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Card(
                                             clipBehavior:
                                                 Clip.antiAliasWithSaveLayer,
@@ -273,9 +263,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   fit: BoxFit.cover,
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(16.0, 16.0,
-                                                          16.0, 16.0),
+                                                  padding: const EdgeInsets.all(16.0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -283,7 +271,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                -1.00, 0.00),
+                                                                -1.0, 0.0),
                                                         child: Text(
                                                           'Event Title',
                                                           style: FlutterFlowTheme
@@ -301,7 +289,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                -1.00, 0.00),
+                                                                -1.0, 0.0),
                                                         child: Text(
                                                           'Location',
                                                           style: FlutterFlowTheme
@@ -324,9 +312,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Card(
                                             clipBehavior:
                                                 Clip.antiAliasWithSaveLayer,
@@ -351,9 +337,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   fit: BoxFit.cover,
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(16.0, 16.0,
-                                                          16.0, 16.0),
+                                                  padding: const EdgeInsets.all(16.0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -361,7 +345,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                -1.00, 0.00),
+                                                                -1.0, 0.0),
                                                         child: Text(
                                                           'Event Title',
                                                           style: FlutterFlowTheme
@@ -379,7 +363,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                -1.00, 0.00),
+                                                                -1.0, 0.0),
                                                         child: Text(
                                                           'Location',
                                                           style: FlutterFlowTheme
@@ -402,9 +386,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           ),
                                         ),
                                         Padding(
-                                          padding:
-                                              const EdgeInsetsDirectional.fromSTEB(
-                                                  10.0, 10.0, 10.0, 10.0),
+                                          padding: const EdgeInsets.all(10.0),
                                           child: Card(
                                             clipBehavior:
                                                 Clip.antiAliasWithSaveLayer,
@@ -429,9 +411,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   fit: BoxFit.cover,
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsetsDirectional
-                                                      .fromSTEB(16.0, 16.0,
-                                                          16.0, 16.0),
+                                                  padding: const EdgeInsets.all(16.0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,
@@ -439,7 +419,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                -1.00, 0.00),
+                                                                -1.0, 0.0),
                                                         child: Text(
                                                           'Event Title',
                                                           style: FlutterFlowTheme
@@ -457,7 +437,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                       Align(
                                                         alignment:
                                                             const AlignmentDirectional(
-                                                                -1.00, 0.00),
+                                                                -1.0, 0.0),
                                                         child: Text(
                                                           'Location',
                                                           style: FlutterFlowTheme

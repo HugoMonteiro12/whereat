@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
+import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -7,6 +8,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'auth2_profile_model.dart';
 export 'auth2_profile_model.dart';
 
@@ -100,7 +102,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
         body: Stack(
           children: [
             Align(
-              alignment: const AlignmentDirectional(0.00, -1.00),
+              alignment: const AlignmentDirectional(0.0, -1.0),
               child: Container(
                 width: double.infinity,
                 constraints: const BoxConstraints(
@@ -156,8 +158,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
-                                      4.0, 4.0, 4.0, 4.0),
+                                  padding: const EdgeInsets.all(4.0),
                                   child: AuthUserStreamWidget(
                                     builder: (context) => ClipRRect(
                                       borderRadius: BorderRadius.circular(50.0),
@@ -178,7 +179,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(1.00, 0.70),
+                            alignment: const AlignmentDirectional(1.0, 0.7),
                             child: Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 12.0, 0.0),
@@ -192,7 +193,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                             ),
                           ),
                           Align(
-                            alignment: const AlignmentDirectional(0.87, 0.90),
+                            alignment: const AlignmentDirectional(0.87, 0.9),
                             child: RichText(
                               textScaleFactor:
                                   MediaQuery.of(context).textScaleFactor,
@@ -210,12 +211,36 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                                         ),
                                   ),
                                   TextSpan(
-                                    text: dateTimeFormat('MMMMEEEEd',
-                                        currentUserDocument!.lastActiveTime!),
+                                    text: dateTimeFormat(
+                                      'MMMMEEEEd',
+                                      currentUserDocument!.lastActiveTime!,
+                                      locale: FFLocalizations.of(context)
+                                          .languageCode,
+                                    ),
                                     style: const TextStyle(),
                                   )
                                 ],
                                 style: FlutterFlowTheme.of(context).bodyMedium,
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: const AlignmentDirectional(1.0, -1.0),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: FlutterFlowIconButton(
+                                borderRadius: 20.0,
+                                borderWidth: 1.0,
+                                buttonSize: 40.0,
+                                icon: FaIcon(
+                                  FontAwesomeIcons.pen,
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                  size: 24.0,
+                                ),
+                                onPressed: () {
+                                  print('IconButton pressed ...');
+                                },
                               ),
                             ),
                           ),
@@ -262,8 +287,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                             ),
                           ),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                12.0, 12.0, 12.0, 12.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -284,7 +308,7 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
                                 ),
                                 Expanded(
                                   child: Align(
-                                    alignment: const AlignmentDirectional(0.90, 0.00),
+                                    alignment: const AlignmentDirectional(0.9, 0.0),
                                     child: Icon(
                                       Icons.arrow_forward_ios,
                                       color: FlutterFlowTheme.of(context)
@@ -304,9 +328,9 @@ class _Auth2ProfileWidgetState extends State<Auth2ProfileWidget>
               ),
             ),
             Align(
-              alignment: const AlignmentDirectional(0.00, 1.00),
+              alignment: const AlignmentDirectional(0.0, 1.0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 90.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     GoRouter.of(context).prepareAuthEvent();

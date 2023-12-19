@@ -104,7 +104,7 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
               width: double.infinity,
               height: double.infinity,
               decoration: const BoxDecoration(),
-              alignment: const AlignmentDirectional(0.00, -1.00),
+              alignment: const AlignmentDirectional(0.0, -1.0),
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -119,9 +119,9 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16.0),
                         ),
-                        alignment: const AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.0, 0.0),
                         child: Align(
-                          alignment: const AlignmentDirectional(0.00, -1.00),
+                          alignment: const AlignmentDirectional(0.0, -1.0),
                           child: RichText(
                             textScaleFactor:
                                 MediaQuery.of(context).textScaleFactor,
@@ -161,8 +161,7 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          16.0, 16.0, 16.0, 16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Container(
                         width: double.infinity,
                         constraints: const BoxConstraints(
@@ -181,10 +180,9 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Align(
-                          alignment: const AlignmentDirectional(0.00, 0.00),
+                          alignment: const AlignmentDirectional(0.0, 0.0),
                           child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                32.0, 32.0, 32.0, 32.0),
+                            padding: const EdgeInsets.all(32.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -405,7 +403,7 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
 
                                 // You will have to add an action on this rich text to go to your login page.
                                 Align(
-                                  alignment: const AlignmentDirectional(0.00, 0.00),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         0.0, 12.0, 0.0, 12.0),
@@ -462,7 +460,7 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
                                   ),
                                 ),
                                 Align(
-                                  alignment: const AlignmentDirectional(0.00, 0.00),
+                                  alignment: const AlignmentDirectional(0.0, 0.0),
                                   child: Padding(
                                     padding: const EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 24.0),
@@ -594,7 +592,7 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
               ),
             ),
             Align(
-              alignment: const AlignmentDirectional(0.00, 1.00),
+              alignment: const AlignmentDirectional(0.0, 1.0),
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                 child: Text(

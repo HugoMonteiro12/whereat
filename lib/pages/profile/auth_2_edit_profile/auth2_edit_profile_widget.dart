@@ -78,26 +78,25 @@ class _Auth2EditProfileWidgetState extends State<Auth2EditProfileWidget> {
           elevation: 2.0,
         ),
         body: Align(
-          alignment: const AlignmentDirectional(0.00, 1.00),
+          alignment: const AlignmentDirectional(0.0, 1.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
                 child: Align(
-                  alignment: const AlignmentDirectional(0.00, 0.00),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Container(
                       width: double.infinity,
                       constraints: const BoxConstraints(
                         maxWidth: 770.0,
                       ),
                       decoration: const BoxDecoration(),
-                      alignment: const AlignmentDirectional(0.00, 0.00),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: Align(
-                        alignment: const AlignmentDirectional(0.00, 1.00),
+                        alignment: const AlignmentDirectional(0.0, 1.0),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 50.0, 0.0, 0.0),

@@ -1,16 +1,19 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'event_widget.dart' show EventWidget;
-import 'package:carousel_slider/carousel_slider.dart';
+import 'itinerary_widget.dart' show ItineraryWidget;
 import 'package:flutter/material.dart';
 
-class EventModel extends FlutterFlowModel<EventWidget> {
+class ItineraryModel extends FlutterFlowModel<ItineraryWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for Carousel widget.
-  CarouselController? carouselController;
+  // State field(s) for PageView widget.
+  PageController? pageViewController;
 
-  int carouselCurrentIndex = 1;
+  int get pageViewCurrentIndex => pageViewController != null &&
+          pageViewController!.hasClients &&
+          pageViewController!.page != null
+      ? pageViewController!.page!.round()
+      : 0;
 
   /// Initialization and disposal methods.
 

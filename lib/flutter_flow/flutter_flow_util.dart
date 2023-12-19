@@ -23,16 +23,24 @@ export 'package:intl/intl.dart';
 export 'package:cloud_firestore/cloud_firestore.dart'
     show DocumentReference, FirebaseFirestore;
 export 'package:page_transition/page_transition.dart';
+export 'custom_icons.dart' show FFIcons;
+export 'internationalization.dart' show FFLocalizations;
 export 'nav/nav.dart';
 
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;
+
+void _setTimeagoLocales() {
+  timeago.setLocaleMessages('en', timeago.EnMessages());
+  timeago.setLocaleMessages('en_short', timeago.EnShortMessages());
+}
 
 String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
   if (dateTime == null) {
     return '';
   }
   if (format == 'relative') {
+    _setTimeagoLocales();
     return timeago.format(dateTime, locale: locale, allowFromNow: true);
   }
   return DateFormat(format, locale).format(dateTime);
@@ -160,7 +168,12 @@ dynamic getJsonField(
     return field.map((f) => f.value).toList();
   }
   final value = field.first.value;
-  return isForList && value is! Iterable ? [value] : value;
+  if (isForList) {
+    return value is! Iterable
+        ? [value]
+        : (value is List ? value : value.toList());
+  }
+  return value;
 }
 
 Rect? getWidgetBoundingBox(BuildContext context) {

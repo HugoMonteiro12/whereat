@@ -13,3 +13,5 @@ export '/pages/profile/auth_2_edit_profile/auth2_edit_profile_widget.dart'
     show Auth2EditProfileWidget;
 export '/pages/home_page/home_page_widget.dart' show HomePageWidget;
 export '/pages/event/event_widget.dart' show EventWidget;
+export '/pages/i_t_ideas/i_t_ideas_widget.dart' show ITIdeasWidget;
+export '/pages/itinerary/itinerary_widget.dart' show ItineraryWidget;

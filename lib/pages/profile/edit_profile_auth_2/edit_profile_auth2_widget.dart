@@ -83,7 +83,7 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
             ),
           ),
           Align(
-            alignment: const AlignmentDirectional(0.00, -1.00),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
               child: Container(
@@ -99,12 +99,11 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
                   shape: BoxShape.circle,
                 ),
                 child: Align(
-                  alignment: const AlignmentDirectional(0.00, 0.00),
+                  alignment: const AlignmentDirectional(0.0, 0.0),
                   child: Stack(
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 4.0, 4.0),
+                        padding: const EdgeInsets.all(4.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(60.0),
                           child: CachedNetworkImage(
@@ -126,7 +125,7 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
             ),
           ),
           Align(
-            alignment: const AlignmentDirectional(0.00, -1.00),
+            alignment: const AlignmentDirectional(0.0, -1.0),
             child: Padding(
               padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 32.0),
               child: FFButtonWidget(
@@ -361,7 +360,7 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
           ),
           Flexible(
             child: Align(
-              alignment: const AlignmentDirectional(0.00, 1.00),
+              alignment: const AlignmentDirectional(0.0, 1.0),
               child: Padding(
                 padding: const EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 0.0),
                 child: FFButtonWidget(

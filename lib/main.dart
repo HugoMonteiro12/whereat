@@ -10,7 +10,6 @@ import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
-import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
 void main() async {
@@ -87,7 +86,9 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       locale: _locale,
-      supportedLocales: const [Locale('en', '')],
+      supportedLocales: const [
+        Locale('en'),
+      ],
       theme: ThemeData(
         brightness: Brightness.light,
         scrollbarTheme: const ScrollbarThemeData(),
@@ -128,6 +129,7 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'HomePage': const HomePageWidget(),
+      'ITIdeas': const ITIdeasWidget(),
       'auth_2_Profile': const Auth2ProfileWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -185,16 +187,39 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.person,
+                  FFIcons.kgroup42,
                   color:
                       currentIndex == 1 ? const Color(0xFFFF9900) : const Color(0x8A000000),
+                  size: 30.0,
+                ),
+                Text(
+                  'Itineraries',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 1
+                        ? const Color(0xFFFF9900)
+                        : const Color(0x8A000000),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.person,
+                  color:
+                      currentIndex == 2 ? const Color(0xFFFF9900) : const Color(0x8A000000),
                   size: 35.0,
                 ),
                 Text(
                   'Profile',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: currentIndex == 1
+                    color: currentIndex == 2
                         ? const Color(0xFFFF9900)
                         : const Color(0x8A000000),
                     fontSize: 11.0,
