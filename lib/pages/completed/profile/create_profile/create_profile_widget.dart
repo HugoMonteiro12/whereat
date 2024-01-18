@@ -1,25 +1,24 @@
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/profile/edit_profile_auth_2/edit_profile_auth2_widget.dart';
+import '/pages/completed/profile/edit_profile_auth_2/edit_profile_auth2_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'auth2_create_profile_model.dart';
-export 'auth2_create_profile_model.dart';
+import 'create_profile_model.dart';
+export 'create_profile_model.dart';
 
-class Auth2CreateProfileWidget extends StatefulWidget {
-  const Auth2CreateProfileWidget({super.key});
+class CreateProfileWidget extends StatefulWidget {
+  const CreateProfileWidget({super.key});
 
   @override
-  _Auth2CreateProfileWidgetState createState() =>
-      _Auth2CreateProfileWidgetState();
+  _CreateProfileWidgetState createState() => _CreateProfileWidgetState();
 }
 
-class _Auth2CreateProfileWidgetState extends State<Auth2CreateProfileWidget>
+class _CreateProfileWidgetState extends State<CreateProfileWidget>
     with TickerProviderStateMixin {
-  late Auth2CreateProfileModel _model;
+  late CreateProfileModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -63,7 +62,7 @@ class _Auth2CreateProfileWidgetState extends State<Auth2CreateProfileWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => Auth2CreateProfileModel());
+    _model = createModel(context, () => CreateProfileModel());
   }
 
   @override
@@ -181,7 +180,7 @@ class _Auth2CreateProfileWidgetState extends State<Auth2CreateProfileWidget>
                           title: 'Create Profile',
                           confirmButtonText: 'Save & Continue',
                           navigateAction: () async {
-                            context.pushNamed('auth_2_Profile');
+                            context.pushNamed('Profile');
                           },
                         ),
                       ),

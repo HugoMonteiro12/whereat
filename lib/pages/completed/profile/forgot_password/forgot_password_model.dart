@@ -1,9 +1,8 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'auth2_forgot_password_widget.dart' show Auth2ForgotPasswordWidget;
+import 'forgot_password_widget.dart' show ForgotPasswordWidget;
 import 'package:flutter/material.dart';
 
-class Auth2ForgotPasswordModel
-    extends FlutterFlowModel<Auth2ForgotPasswordWidget> {
+class ForgotPasswordModel extends FlutterFlowModel<ForgotPasswordWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

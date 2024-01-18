@@ -55,11 +55,6 @@ class UsersRecord extends FirestoreRecord {
   DateTime? get lastActiveTime => _lastActiveTime;
   bool hasLastActiveTime() => _lastActiveTime != null;
 
-  // "role" field.
-  String? _role;
-  String get role => _role ?? '';
-  bool hasRole() => _role != null;
-
   // "title" field.
   String? _title;
   String get title => _title ?? '';
@@ -79,7 +74,6 @@ class UsersRecord extends FirestoreRecord {
     _phoneNumber = snapshotData['phone_number'] as String?;
     _shortDescription = snapshotData['shortDescription'] as String?;
     _lastActiveTime = snapshotData['last_active_time'] as DateTime?;
-    _role = snapshotData['role'] as String?;
     _title = snapshotData['title'] as String?;
     _profileHeader = snapshotData['profile_header'] as String?;
   }
@@ -126,7 +120,6 @@ Map<String, dynamic> createUsersRecordData({
   String? phoneNumber,
   String? shortDescription,
   DateTime? lastActiveTime,
-  String? role,
   String? title,
   String? profileHeader,
 }) {
@@ -140,7 +133,6 @@ Map<String, dynamic> createUsersRecordData({
       'phone_number': phoneNumber,
       'shortDescription': shortDescription,
       'last_active_time': lastActiveTime,
-      'role': role,
       'title': title,
       'profile_header': profileHeader,
     }.withoutNulls,
@@ -162,7 +154,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.shortDescription == e2?.shortDescription &&
         e1?.lastActiveTime == e2?.lastActiveTime &&
-        e1?.role == e2?.role &&
         e1?.title == e2?.title &&
         e1?.profileHeader == e2?.profileHeader;
   }
@@ -177,7 +168,6 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.phoneNumber,
         e?.shortDescription,
         e?.lastActiveTime,
-        e?.role,
         e?.title,
         e?.profileHeader
       ]);

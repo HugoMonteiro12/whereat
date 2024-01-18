@@ -8,19 +8,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'auth2_create_model.dart';
-export 'auth2_create_model.dart';
+import 'create_model.dart';
+export 'create_model.dart';
 
-class Auth2CreateWidget extends StatefulWidget {
-  const Auth2CreateWidget({super.key});
+class CreateWidget extends StatefulWidget {
+  const CreateWidget({super.key});
 
   @override
-  _Auth2CreateWidgetState createState() => _Auth2CreateWidgetState();
+  _CreateWidgetState createState() => _CreateWidgetState();
 }
 
-class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
+class _CreateWidgetState extends State<CreateWidget>
     with TickerProviderStateMixin {
-  late Auth2CreateModel _model;
+  late CreateModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -64,7 +64,7 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => Auth2CreateModel());
+    _model = createModel(context, () => CreateModel());
 
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
@@ -372,8 +372,7 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
                                       }
 
                                       context.goNamedAuth(
-                                          'auth_2_createProfile',
-                                          context.mounted);
+                                          'createProfile', context.mounted);
                                     },
                                     text: 'Create Account',
                                     options: FFButtonOptions(
@@ -414,7 +413,7 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         context.pushNamed(
-                                          'auth_2_Login',
+                                          'Login',
                                           extra: <String, dynamic>{
                                             kTransitionInfoKey: const TransitionInfo(
                                               hasTransition: true,
@@ -588,16 +587,6 @@ class _Auth2CreateWidgetState extends State<Auth2CreateWidget>
                           animationsMap['containerOnPageLoadAnimation']!),
                     ),
                   ],
-                ),
-              ),
-            ),
-            Align(
-              alignment: const AlignmentDirectional(0.0, 1.0),
-              child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                child: Text(
-                  'Developed by XYXYXYXYXXY',
-                  style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
               ),
             ),

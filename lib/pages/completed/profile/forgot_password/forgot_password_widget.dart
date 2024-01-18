@@ -8,20 +8,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'auth2_forgot_password_model.dart';
-export 'auth2_forgot_password_model.dart';
+import 'forgot_password_model.dart';
+export 'forgot_password_model.dart';
 
-class Auth2ForgotPasswordWidget extends StatefulWidget {
-  const Auth2ForgotPasswordWidget({super.key});
+class ForgotPasswordWidget extends StatefulWidget {
+  const ForgotPasswordWidget({super.key});
 
   @override
-  _Auth2ForgotPasswordWidgetState createState() =>
-      _Auth2ForgotPasswordWidgetState();
+  _ForgotPasswordWidgetState createState() => _ForgotPasswordWidgetState();
 }
 
-class _Auth2ForgotPasswordWidgetState extends State<Auth2ForgotPasswordWidget>
+class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget>
     with TickerProviderStateMixin {
-  late Auth2ForgotPasswordModel _model;
+  late ForgotPasswordModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -65,7 +64,7 @@ class _Auth2ForgotPasswordWidgetState extends State<Auth2ForgotPasswordWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => Auth2ForgotPasswordModel());
+    _model = createModel(context, () => ForgotPasswordModel());
 
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();

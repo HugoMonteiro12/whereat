@@ -8,19 +8,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'auth2_login_model.dart';
-export 'auth2_login_model.dart';
+import 'login_model.dart';
+export 'login_model.dart';
 
-class Auth2LoginWidget extends StatefulWidget {
-  const Auth2LoginWidget({super.key});
+class LoginWidget extends StatefulWidget {
+  const LoginWidget({super.key});
 
   @override
-  _Auth2LoginWidgetState createState() => _Auth2LoginWidgetState();
+  _LoginWidgetState createState() => _LoginWidgetState();
 }
 
-class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
+class _LoginWidgetState extends State<LoginWidget>
     with TickerProviderStateMixin {
-  late Auth2LoginModel _model;
+  late LoginModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -64,7 +64,7 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => Auth2LoginModel());
+    _model = createModel(context, () => LoginModel());
 
     _model.emailAddressController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
@@ -370,8 +370,6 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                             ),
-
-                            // You will have to add an action on this rich text to go to your login page.
                             Align(
                               alignment: const AlignmentDirectional(0.0, 0.0),
                               child: Padding(
@@ -384,7 +382,7 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     context.pushNamed(
-                                      'auth_2_Create',
+                                      'Create',
                                       extra: <String, dynamic>{
                                         kTransitionInfoKey: const TransitionInfo(
                                           hasTransition: true,
@@ -543,7 +541,7 @@ class _Auth2LoginWidgetState extends State<Auth2LoginWidget>
                                   0.0, 16.0, 0.0, 0.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
-                                  context.pushNamed('auth_2_ForgotPassword');
+                                  context.pushNamed('ForgotPassword');
                                 },
                                 text: 'Forgot password?',
                                 options: FFButtonOptions(

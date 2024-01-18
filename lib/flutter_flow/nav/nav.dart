@@ -72,45 +72,45 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const Auth2LoginWidget(),
+          appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? const NavBarPage() : const Auth2LoginWidget(),
+              appStateNotifier.loggedIn ? const NavBarPage() : const LoginWidget(),
           routes: [
             FFRoute(
-              name: 'auth_2_Create',
-              path: 'auth2Create',
-              builder: (context, params) => const Auth2CreateWidget(),
+              name: 'Create',
+              path: 'create',
+              builder: (context, params) => const CreateWidget(),
             ),
             FFRoute(
-              name: 'auth_2_Login',
-              path: 'auth2Login',
-              builder: (context, params) => const Auth2LoginWidget(),
+              name: 'Login',
+              path: 'login',
+              builder: (context, params) => const LoginWidget(),
             ),
             FFRoute(
-              name: 'auth_2_ForgotPassword',
-              path: 'auth2ForgotPassword',
-              builder: (context, params) => const Auth2ForgotPasswordWidget(),
+              name: 'ForgotPassword',
+              path: 'forgotPassword',
+              builder: (context, params) => const ForgotPasswordWidget(),
             ),
             FFRoute(
-              name: 'auth_2_createProfile',
-              path: 'auth2CreateProfile',
-              builder: (context, params) => const Auth2CreateProfileWidget(),
+              name: 'createProfile',
+              path: 'createProfile',
+              builder: (context, params) => const CreateProfileWidget(),
             ),
             FFRoute(
-              name: 'auth_2_Profile',
-              path: 'auth2Profile',
+              name: 'Profile',
+              path: 'profile',
               builder: (context, params) => params.isEmpty
-                  ? const NavBarPage(initialPage: 'auth_2_Profile')
-                  : const Auth2ProfileWidget(),
+                  ? const NavBarPage(initialPage: 'Profile')
+                  : const ProfileWidget(),
             ),
             FFRoute(
-              name: 'auth_2_EditProfile',
-              path: 'auth2EditProfile',
-              builder: (context, params) => const Auth2EditProfileWidget(),
+              name: 'EditProfile',
+              path: 'editProfile',
+              builder: (context, params) => const EditProfileWidget(),
             ),
             FFRoute(
               name: 'HomePage',
@@ -122,9 +122,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Event',
               path: 'event',
-              builder: (context, params) => const NavBarPage(
+              builder: (context, params) => NavBarPage(
                 initialPage: '',
-                page: EventWidget(),
+                page: EventWidget(
+                  event: params.getParam('event', ParamType.String),
+                ),
               ),
             ),
             FFRoute(
@@ -137,7 +139,25 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'Itinerary',
               path: 'itinerary',
-              builder: (context, params) => const ItineraryWidget(),
+              builder: (context, params) => ItineraryWidget(
+                itinerary: params.getParam('itinerary',
+                    ParamType.DocumentReference, false, ['Itineraries']),
+              ),
+            ),
+            FFRoute(
+              name: 'DetailedItinerary',
+              path: 'detailedItinerary',
+              builder: (context, params) => const DetailedItineraryWidget(),
+            ),
+            FFRoute(
+              name: 'CreateEvent',
+              path: 'createEvent',
+              builder: (context, params) => const CreateEventWidget(),
+            ),
+            FFRoute(
+              name: 'Profiletest',
+              path: 'profiletest',
+              builder: (context, params) => const ProfiletestWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),
@@ -306,7 +326,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.location);
-            return '/auth2Login';
+            return '/login';
           }
           return null;
         },

@@ -1,11 +1,9 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -72,14 +70,20 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
             padding: const EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 0.0),
             child: Text(
               widget.title,
-              style: FlutterFlowTheme.of(context).headlineLarge,
+              style: FlutterFlowTheme.of(context).headlineLarge.override(
+                    fontFamily: 'Outfit',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
             ),
           ),
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(24.0, 8.0, 0.0, 0.0),
             child: Text(
               'Adjust the content below to update your profile.',
-              style: FlutterFlowTheme.of(context).labelLarge,
+              style: FlutterFlowTheme.of(context).labelLarge.override(
+                    fontFamily: 'Outfit',
+                    color: FlutterFlowTheme.of(context).primaryText,
+                  ),
             ),
           ),
           Align(
@@ -144,11 +148,6 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
 
                     var downloadUrls = <String>[];
                     try {
-                      showUploadMessage(
-                        context,
-                        'Uploading file...',
-                        showLoading: true,
-                      );
                       selectedUploadedFiles = selectedMedia
                           .map((m) => FFUploadedFile(
                                 name: m.storagePath.split('/').last,
@@ -168,7 +167,6 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
                           .map((u) => u!)
                           .toList();
                     } finally {
-                      ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       _model.isDataUploading = false;
                     }
                     if (selectedUploadedFiles.length == selectedMedia.length &&
@@ -177,10 +175,8 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
                         _model.uploadedLocalFile = selectedUploadedFiles.first;
                         _model.uploadedFileUrl = downloadUrls.first;
                       });
-                      showUploadMessage(context, 'Success!');
                     } else {
                       setState(() {});
-                      showUploadMessage(context, 'Failed to upload data');
                       return;
                     }
                   }
@@ -265,44 +261,6 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
           Padding(
             padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
             child: AuthUserStreamWidget(
-              builder: (context) => FlutterFlowDropDown<String>(
-                controller: _model.dropDownValueController ??=
-                    FormFieldController<String>(
-                  _model.dropDownValue ??=
-                      valueOrDefault(currentUserDocument?.role, ''),
-                ),
-                options: const [
-                  'Owner/Founder',
-                  'Director',
-                  'Manager',
-                  'Mid-Manager',
-                  'Employee'
-                ],
-                onChanged: (val) => setState(() => _model.dropDownValue = val),
-                width: double.infinity,
-                height: 44.0,
-                textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                hintText: 'Your Role',
-                icon: Icon(
-                  Icons.keyboard_arrow_down_rounded,
-                  color: FlutterFlowTheme.of(context).secondaryText,
-                  size: 24.0,
-                ),
-                fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                elevation: 2.0,
-                borderColor: FlutterFlowTheme.of(context).alternate,
-                borderWidth: 2.0,
-                borderRadius: 8.0,
-                margin: const EdgeInsetsDirectional.fromSTEB(16.0, 4.0, 16.0, 4.0),
-                hidesUnderline: true,
-                isSearchable: false,
-                isMultiSelect: false,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
-            child: AuthUserStreamWidget(
               builder: (context) => TextFormField(
                 controller: _model.myBioController,
                 focusNode: _model.myBioFocusNode,
@@ -378,7 +336,6 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
                           : currentUserPhoto,
                       shortDescription: _model.myBioController.text,
                       lastActiveTime: getCurrentTimestamp,
-                      role: _model.dropDownValue,
                     ));
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

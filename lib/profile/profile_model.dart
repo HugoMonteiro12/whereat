@@ -1,20 +1,11 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'event_widget.dart' show EventWidget;
-import 'package:carousel_slider/carousel_slider.dart';
+import 'profile_widget.dart' show ProfileWidget;
 import 'package:flutter/material.dart';
 
-class EventModel extends FlutterFlowModel<EventWidget> {
-  ///  Local state fields for this page.
-
-  DocumentReference? event;
-
+class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for Carousel widget.
-  CarouselController? carouselController;
-
-  int carouselCurrentIndex = 1;
 
   /// Initialization and disposal methods.
 
