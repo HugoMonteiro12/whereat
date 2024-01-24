@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'create_event_widget.dart' show CreateEventWidget;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CreateEventModel extends FlutterFlowModel<CreateEventWidget> {
@@ -16,6 +17,10 @@ class CreateEventModel extends FlutterFlowModel<CreateEventWidget> {
   FocusNode? locFocusNode;
   TextEditingController? locController;
   String? Function(BuildContext, String?)? locControllerValidator;
+  // State field(s) for Address widget.
+  FocusNode? addressFocusNode;
+  TextEditingController? addressController;
+  String? Function(BuildContext, String?)? addressControllerValidator;
   // State field(s) for yourName widget.
   FocusNode? yourNameFocusNode2;
   TextEditingController? yourNameController2;
@@ -46,6 +51,9 @@ class CreateEventModel extends FlutterFlowModel<CreateEventWidget> {
 
     locFocusNode?.dispose();
     locController?.dispose();
+
+    addressFocusNode?.dispose();
+    addressController?.dispose();
 
     yourNameFocusNode2?.dispose();
     yourNameController2?.dispose();

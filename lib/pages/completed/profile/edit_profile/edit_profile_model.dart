@@ -1,5 +1,5 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/completed/profile/edit_profile_auth_2/edit_profile_auth2_widget.dart';
+import '/pages/completed/profile/edit_profile_widget/edit_profile_widget_widget.dart';
 import 'edit_profile_widget.dart' show EditProfileWidget;
 import 'package:flutter/material.dart';
 
@@ -7,20 +7,21 @@ class EditProfileModel extends FlutterFlowModel<EditProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Model for editProfile_auth_2 component.
-  late EditProfileAuth2Model editProfileAuth2Model;
+  // Model for editProfile_widget component.
+  late EditProfileWidgetModel editProfileWidgetModel;
 
   /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
-    editProfileAuth2Model = createModel(context, () => EditProfileAuth2Model());
+    editProfileWidgetModel =
+        createModel(context, () => EditProfileWidgetModel());
   }
 
   @override
   void dispose() {
     unfocusNode.dispose();
-    editProfileAuth2Model.dispose();
+    editProfileWidgetModel.dispose();
   }
 
   /// Action blocks are added here.

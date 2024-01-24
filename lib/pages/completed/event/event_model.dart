@@ -1,8 +1,12 @@
 import '/flutter_flow/flutter_flow_util.dart';
-import 'profiletest_widget.dart' show ProfiletestWidget;
+import 'event_widget.dart' show EventWidget;
 import 'package:flutter/material.dart';
 
-class ProfiletestModel extends FlutterFlowModel<ProfiletestWidget> {
+class EventModel extends FlutterFlowModel<EventWidget> {
+  ///  Local state fields for this page.
+
+  DocumentReference? event;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

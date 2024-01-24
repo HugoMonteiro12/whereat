@@ -1,3 +1,4 @@
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -17,7 +18,13 @@ void main() async {
   usePathUrlStrategy();
   await initFirebase();
 
-  runApp(const MyApp());
+  final appState = FFAppState(); // Initialize FFAppState
+  await appState.initializePersistedState();
+
+  runApp(ChangeNotifierProvider(
+    create: (context) => appState,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -183,7 +190,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   FFIcons.kgroup42,
                   color:
                       currentIndex == 1 ? const Color(0xFFFF9900) : const Color(0x8A000000),
-                  size: 30.0,
+                  size: 34.0,
                 ),
                 Text(
                   'Itineraries',

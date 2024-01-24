@@ -15,11 +15,6 @@ class StopsRecord extends FirestoreRecord {
     _initializeFields();
   }
 
-  // "name" field.
-  String? _name;
-  String get name => _name ?? '';
-  bool hasName() => _name != null;
-
   // "location" field.
   LatLng? _location;
   LatLng? get location => _location;
@@ -35,13 +30,24 @@ class StopsRecord extends FirestoreRecord {
   DateTime? get goTime => _goTime;
   bool hasGoTime() => _goTime != null;
 
+  // "name" field.
+  DocumentReference? _name;
+  DocumentReference? get name => _name;
+  bool hasName() => _name != null;
+
+  // "city" field.
+  DocumentReference? _city;
+  DocumentReference? get city => _city;
+  bool hasCity() => _city != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
-    _name = snapshotData['name'] as String?;
     _location = snapshotData['location'] as LatLng?;
     _stopTime = snapshotData['stopTime'] as DateTime?;
     _goTime = snapshotData['goTime'] as DateTime?;
+    _name = snapshotData['name'] as DocumentReference?;
+    _city = snapshotData['city'] as DocumentReference?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -83,17 +89,19 @@ class StopsRecord extends FirestoreRecord {
 }
 
 Map<String, dynamic> createStopsRecordData({
-  String? name,
   LatLng? location,
   DateTime? stopTime,
   DateTime? goTime,
+  DocumentReference? name,
+  DocumentReference? city,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
-      'name': name,
       'location': location,
       'stopTime': stopTime,
       'goTime': goTime,
+      'name': name,
+      'city': city,
     }.withoutNulls,
   );
 
@@ -105,15 +113,16 @@ class StopsRecordDocumentEquality implements Equality<StopsRecord> {
 
   @override
   bool equals(StopsRecord? e1, StopsRecord? e2) {
-    return e1?.name == e2?.name &&
-        e1?.location == e2?.location &&
+    return e1?.location == e2?.location &&
         e1?.stopTime == e2?.stopTime &&
-        e1?.goTime == e2?.goTime;
+        e1?.goTime == e2?.goTime &&
+        e1?.name == e2?.name &&
+        e1?.city == e2?.city;
   }
 
   @override
-  int hash(StopsRecord? e) =>
-      const ListEquality().hash([e?.name, e?.location, e?.stopTime, e?.goTime]);
+  int hash(StopsRecord? e) => const ListEquality()
+      .hash([e?.location, e?.stopTime, e?.goTime, e?.name, e?.city]);
 
   @override
   bool isValidKey(Object? o) => o is StopsRecord;

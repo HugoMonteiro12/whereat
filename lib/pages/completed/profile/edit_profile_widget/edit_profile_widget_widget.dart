@@ -5,13 +5,13 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'edit_profile_auth2_model.dart';
-export 'edit_profile_auth2_model.dart';
+import 'package:provider/provider.dart';
+import 'edit_profile_widget_model.dart';
+export 'edit_profile_widget_model.dart';
 
-class EditProfileAuth2Widget extends StatefulWidget {
-  const EditProfileAuth2Widget({
+class EditProfileWidgetWidget extends StatefulWidget {
+  const EditProfileWidgetWidget({
     super.key,
     String? title,
     String? confirmButtonText,
@@ -24,11 +24,12 @@ class EditProfileAuth2Widget extends StatefulWidget {
   final Future<dynamic> Function()? navigateAction;
 
   @override
-  _EditProfileAuth2WidgetState createState() => _EditProfileAuth2WidgetState();
+  _EditProfileWidgetWidgetState createState() =>
+      _EditProfileWidgetWidgetState();
 }
 
-class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
-  late EditProfileAuth2Model _model;
+class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
+  late EditProfileWidgetModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -39,11 +40,15 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => EditProfileAuth2Model());
+    _model = createModel(context, () => EditProfileWidgetModel());
 
     _model.yourNameController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.yourNameFocusNode ??= FocusNode();
+
+    _model.phonenumberController ??=
+        TextEditingController(text: currentPhoneNumber);
+    _model.phonenumberFocusNode ??= FocusNode();
 
     _model.myBioController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.shortDescription, ''));
@@ -59,6 +64,8 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Form(
       key: _model.formKey,
       autovalidateMode: AutovalidateMode.disabled,
@@ -108,17 +115,17 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(60.0),
-                          child: CachedNetworkImage(
-                            fadeInDuration: const Duration(milliseconds: 200),
-                            fadeOutDuration: const Duration(milliseconds: 200),
-                            imageUrl: _model.uploadedFileUrl,
-                            width: 300.0,
-                            height: 200.0,
-                            fit: BoxFit.cover,
-                            memCacheWidth: 300,
-                            memCacheHeight: 200,
+                        child: AuthUserStreamWidget(
+                          builder: (context) => ClipRRect(
+                            borderRadius: BorderRadius.circular(60.0),
+                            child: Image.network(
+                              currentUserPhoto,
+                              width: 300.0,
+                              height: 200.0,
+                              fit: BoxFit.cover,
+                              cacheWidth: 300,
+                              cacheHeight: 200,
+                            ),
                           ),
                         ),
                       ),
@@ -143,7 +150,7 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
                   if (selectedMedia != null &&
                       selectedMedia.every(
                           (m) => validateFileFormat(m.storagePath, context))) {
-                    setState(() => _model.isDataUploading = true);
+                    setState(() => _model.isDataUploading1 = true);
                     var selectedUploadedFiles = <FFUploadedFile>[];
 
                     var downloadUrls = <String>[];
@@ -167,13 +174,13 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
                           .map((u) => u!)
                           .toList();
                     } finally {
-                      _model.isDataUploading = false;
+                      _model.isDataUploading1 = false;
                     }
                     if (selectedUploadedFiles.length == selectedMedia.length &&
                         downloadUrls.length == selectedMedia.length) {
                       setState(() {
-                        _model.uploadedLocalFile = selectedUploadedFiles.first;
-                        _model.uploadedFileUrl = downloadUrls.first;
+                        _model.uploadedLocalFile1 = selectedUploadedFiles.first;
+                        _model.uploadedFileUrl1 = downloadUrls.first;
                       });
                     } else {
                       setState(() {});
@@ -262,6 +269,65 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
             padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
             child: AuthUserStreamWidget(
               builder: (context) => TextFormField(
+                controller: _model.phonenumberController,
+                focusNode: _model.phonenumberFocusNode,
+                autofillHints: const [AutofillHints.name],
+                textCapitalization: TextCapitalization.words,
+                obscureText: false,
+                decoration: InputDecoration(
+                  labelText: 'Phone number',
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintText: 'Your phone number...',
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Outfit',
+                        color: FlutterFlowTheme.of(context).error,
+                      ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).alternate,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).primary,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: FlutterFlowTheme.of(context).error,
+                      width: 2.0,
+                    ),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  filled: true,
+                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
+                  contentPadding:
+                      const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 12.0),
+                ),
+                style: FlutterFlowTheme.of(context).bodyMedium,
+                keyboardType: TextInputType.phone,
+                cursorColor: FlutterFlowTheme.of(context).primary,
+                validator:
+                    _model.phonenumberControllerValidator.asValidator(context),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
+            child: AuthUserStreamWidget(
+              builder: (context) => TextFormField(
                 controller: _model.myBioController,
                 focusNode: _model.myBioFocusNode,
                 textCapitalization: TextCapitalization.sentences,
@@ -316,11 +382,97 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
               ),
             ),
           ),
-          Flexible(
+          Padding(
+            padding: const EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Your header',
+                  style: FlutterFlowTheme.of(context).bodyMedium,
+                ),
+                Align(
+                  alignment: const AlignmentDirectional(0.0, -1.0),
+                  child: FFButtonWidget(
+                    onPressed: () async {
+                      final selectedMedia = await selectMedia(
+                        maxWidth: 300.00,
+                        maxHeight: 300.00,
+                        mediaSource: MediaSource.photoGallery,
+                        multiImage: false,
+                      );
+                      if (selectedMedia != null &&
+                          selectedMedia.every((m) =>
+                              validateFileFormat(m.storagePath, context))) {
+                        setState(() => _model.isDataUploading2 = true);
+                        var selectedUploadedFiles = <FFUploadedFile>[];
+
+                        var downloadUrls = <String>[];
+                        try {
+                          selectedUploadedFiles = selectedMedia
+                              .map((m) => FFUploadedFile(
+                                    name: m.storagePath.split('/').last,
+                                    bytes: m.bytes,
+                                    height: m.dimensions?.height,
+                                    width: m.dimensions?.width,
+                                    blurHash: m.blurHash,
+                                  ))
+                              .toList();
+
+                          downloadUrls = (await Future.wait(
+                            selectedMedia.map(
+                              (m) async =>
+                                  await uploadData(m.storagePath, m.bytes),
+                            ),
+                          ))
+                              .where((u) => u != null)
+                              .map((u) => u!)
+                              .toList();
+                        } finally {
+                          _model.isDataUploading2 = false;
+                        }
+                        if (selectedUploadedFiles.length ==
+                                selectedMedia.length &&
+                            downloadUrls.length == selectedMedia.length) {
+                          setState(() {
+                            _model.uploadedLocalFile2 =
+                                selectedUploadedFiles.first;
+                            _model.uploadedFileUrl2 = downloadUrls.first;
+                          });
+                        } else {
+                          setState(() {});
+                          return;
+                        }
+                      }
+                    },
+                    text: 'Change Photo',
+                    options: FFButtonOptions(
+                      width: 130.0,
+                      height: 40.0,
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      iconPadding:
+                          const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                      elevation: 1.0,
+                      borderSide: BorderSide(
+                        color: FlutterFlowTheme.of(context).alternate,
+                        width: 1.0,
+                      ),
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
             child: Align(
               alignment: const AlignmentDirectional(0.0, 1.0),
               child: Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 0.0),
+                padding: const EdgeInsetsDirectional.fromSTEB(20.0, 24.0, 20.0, 10.0),
                 child: FFButtonWidget(
                   onPressed: () async {
                     if (_model.formKey.currentState == null ||
@@ -331,11 +483,16 @@ class _EditProfileAuth2WidgetState extends State<EditProfileAuth2Widget> {
 
                     await currentUserReference!.update(createUsersRecordData(
                       displayName: _model.yourNameController.text,
-                      photoUrl: _model.uploadedFileUrl != ''
-                          ? _model.uploadedFileUrl
+                      photoUrl: _model.uploadedFileUrl1 != ''
+                          ? _model.uploadedFileUrl1
                           : currentUserPhoto,
                       shortDescription: _model.myBioController.text,
                       lastActiveTime: getCurrentTimestamp,
+                      profileHeader: _model.uploadedFileUrl2 != ''
+                          ? _model.uploadedFileUrl2
+                          : valueOrDefault(
+                              currentUserDocument?.profileHeader, ''),
+                      phoneNumber: _model.phonenumberController.text,
                     ));
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

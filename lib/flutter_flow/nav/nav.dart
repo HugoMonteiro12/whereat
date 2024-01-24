@@ -125,7 +125,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => NavBarPage(
                 initialPage: '',
                 page: EventWidget(
-                  event: params.getParam('event', ParamType.String),
+                  eventDetails: params.getParam('eventDetails',
+                      ParamType.DocumentReference, false, ['events']),
                 ),
               ),
             ),
@@ -155,9 +156,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => const CreateEventWidget(),
             ),
             FFRoute(
-              name: 'Profiletest',
-              path: 'profiletest',
-              builder: (context, params) => const ProfiletestWidget(),
+              name: 'FavouriteCities',
+              path: 'favouriteCities',
+              builder: (context, params) => const NavBarPage(
+                initialPage: '',
+                page: FavouriteCitiesWidget(),
+              ),
+            ),
+            FFRoute(
+              name: 'VisitedCities',
+              path: 'visitedCities',
+              builder: (context, params) => const NavBarPage(
+                initialPage: '',
+                page: VisitedCitiesWidget(),
+              ),
+            ),
+            FFRoute(
+              name: 'Saveditineraries',
+              path: 'saveditineraries',
+              builder: (context, params) => const NavBarPage(
+                initialPage: '',
+                page: SaveditinerariesWidget(),
+              ),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

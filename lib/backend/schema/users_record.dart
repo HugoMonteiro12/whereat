@@ -55,15 +55,15 @@ class UsersRecord extends FirestoreRecord {
   DateTime? get lastActiveTime => _lastActiveTime;
   bool hasLastActiveTime() => _lastActiveTime != null;
 
-  // "title" field.
-  String? _title;
-  String get title => _title ?? '';
-  bool hasTitle() => _title != null;
-
   // "profile_header" field.
   String? _profileHeader;
   String get profileHeader => _profileHeader ?? '';
   bool hasProfileHeader() => _profileHeader != null;
+
+  // "admin" field.
+  bool? _admin;
+  bool get admin => _admin ?? false;
+  bool hasAdmin() => _admin != null;
 
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
@@ -74,8 +74,8 @@ class UsersRecord extends FirestoreRecord {
     _phoneNumber = snapshotData['phone_number'] as String?;
     _shortDescription = snapshotData['shortDescription'] as String?;
     _lastActiveTime = snapshotData['last_active_time'] as DateTime?;
-    _title = snapshotData['title'] as String?;
     _profileHeader = snapshotData['profile_header'] as String?;
+    _admin = snapshotData['admin'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -120,8 +120,8 @@ Map<String, dynamic> createUsersRecordData({
   String? phoneNumber,
   String? shortDescription,
   DateTime? lastActiveTime,
-  String? title,
   String? profileHeader,
+  bool? admin,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -133,8 +133,8 @@ Map<String, dynamic> createUsersRecordData({
       'phone_number': phoneNumber,
       'shortDescription': shortDescription,
       'last_active_time': lastActiveTime,
-      'title': title,
       'profile_header': profileHeader,
+      'admin': admin,
     }.withoutNulls,
   );
 
@@ -154,8 +154,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.shortDescription == e2?.shortDescription &&
         e1?.lastActiveTime == e2?.lastActiveTime &&
-        e1?.title == e2?.title &&
-        e1?.profileHeader == e2?.profileHeader;
+        e1?.profileHeader == e2?.profileHeader &&
+        e1?.admin == e2?.admin;
   }
 
   @override
@@ -168,8 +168,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.phoneNumber,
         e?.shortDescription,
         e?.lastActiveTime,
-        e?.title,
-        e?.profileHeader
+        e?.profileHeader,
+        e?.admin
       ]);
 
   @override

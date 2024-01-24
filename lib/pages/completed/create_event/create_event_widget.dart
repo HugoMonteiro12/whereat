@@ -7,9 +7,11 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'create_event_model.dart';
 export 'create_event_model.dart';
 
@@ -36,9 +38,34 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
     _model.locController ??= TextEditingController();
     _model.locFocusNode ??= FocusNode();
 
+    _model.addressController ??= TextEditingController();
+    _model.addressFocusNode ??= FocusNode();
+
     _model.yourNameController2 ??= TextEditingController();
     _model.yourNameFocusNode2 ??= FocusNode();
-
+    _model.yourNameFocusNode2!.addListener(
+      () async {
+        await showModalBottomSheet<bool>(
+            context: context,
+            builder: (context) {
+              return SizedBox(
+                height: MediaQuery.of(context).size.height / 3,
+                width: MediaQuery.of(context).size.width,
+                child: CupertinoDatePicker(
+                  mode: CupertinoDatePickerMode.dateAndTime,
+                  minimumDate: getCurrentTimestamp,
+                  initialDateTime: getCurrentTimestamp,
+                  maximumDate: DateTime(2050),
+                  use24hFormat: false,
+                  onDateTimeChanged: (newDateTime) => safeSetState(() {
+                    _model.datePicked = newDateTime;
+                  }),
+                ),
+              );
+            });
+      },
+    );
+    _model.myBioController ??= TextEditingController();
     _model.myBioFocusNode ??= FocusNode();
   }
 
@@ -59,6 +86,8 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
         ),
       );
     }
+
+    context.watch<FFAppState>();
 
     return StreamBuilder<List<EventsRecord>>(
       stream: queryEventsRecord(
@@ -115,11 +144,11 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                 },
               ),
               title: Text(
-                'Page Title',
+                'Where@',
                 style: GoogleFonts.getFont(
                   'Righteous',
                   color: const Color(0xFFFF9900),
-                  fontSize: 22.0,
+                  fontSize: 34.0,
                 ),
               ),
               actions: const [],
@@ -138,17 +167,21 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 0.0, 20.0),
-                        child: Text(
-                          'Create Event',
-                          style: FlutterFlowTheme.of(context)
-                              .headlineLarge
-                              .override(
-                                fontFamily: 'Outfit',
-                                color: FlutterFlowTheme.of(context).primaryText,
-                              ),
+                      Align(
+                        alignment: const AlignmentDirectional(0.0, 0.0),
+                        child: Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              0.0, 10.0, 0.0, 20.0),
+                          child: Text(
+                            'Create Event',
+                            style: FlutterFlowTheme.of(context)
+                                .headlineLarge
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                          ),
                         ),
                       ),
                       Padding(
@@ -266,6 +299,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                 16.0, 12.0, 0.0, 12.0),
                           ),
                           style: FlutterFlowTheme.of(context).bodyMedium,
+                          keyboardType: TextInputType.streetAddress,
                           cursorColor: FlutterFlowTheme.of(context).primary,
                           validator: _model.locControllerValidator
                               .asValidator(context),
@@ -275,56 +309,69 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 12.0, 20.0, 12.0),
                         child: TextFormField(
+                          controller: _model.addressController,
+                          focusNode: _model.addressFocusNode,
+                          autofillHints: const [AutofillHints.name],
+                          textCapitalization: TextCapitalization.words,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            labelText: 'Address',
+                            labelStyle:
+                                FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            errorStyle: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  color: FlutterFlowTheme.of(context).error,
+                                ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                color: Color(0xFFFF9900),
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).primary,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).error,
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(8.0),
+                            ),
+                            filled: true,
+                            fillColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
+                            contentPadding: const EdgeInsetsDirectional.fromSTEB(
+                                16.0, 12.0, 0.0, 12.0),
+                          ),
+                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          keyboardType: TextInputType.streetAddress,
+                          cursorColor: FlutterFlowTheme.of(context).primary,
+                          validator: _model.addressControllerValidator
+                              .asValidator(context),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            20.0, 12.0, 20.0, 12.0),
+                        child: TextFormField(
                           controller: _model.yourNameController2,
                           focusNode: _model.yourNameFocusNode2,
-                          onFieldSubmitted: (_) async {
-                            final datePickedDate = await showDatePicker(
-                              context: context,
-                              initialDate: getCurrentTimestamp,
-                              firstDate: getCurrentTimestamp,
-                              lastDate: DateTime(2050),
-                              builder: (context, child) {
-                                return wrapInMaterialDatePickerTheme(
-                                  context,
-                                  child!,
-                                  headerBackgroundColor: const Color(0xFFFF9900),
-                                  headerForegroundColor:
-                                      FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                  headerTextStyle: FlutterFlowTheme.of(context)
-                                      .headlineLarge
-                                      .override(
-                                        fontFamily: 'Outfit',
-                                        fontSize: 32.0,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                  pickerBackgroundColor:
-                                      FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                  pickerForegroundColor:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                  selectedDateTimeBackgroundColor:
-                                      const Color(0xFFFF9900),
-                                  selectedDateTimeForegroundColor:
-                                      FlutterFlowTheme.of(context)
-                                          .primaryBtnText,
-                                  actionButtonForegroundColor:
-                                      const Color(0xFFFF9900),
-                                  iconSize: 24.0,
-                                );
-                              },
-                            );
-
-                            if (datePickedDate != null) {
-                              safeSetState(() {
-                                _model.datePicked = DateTime(
-                                  datePickedDate.year,
-                                  datePickedDate.month,
-                                  datePickedDate.day,
-                                );
-                              });
-                            }
-                          },
                           autofillHints: const [AutofillHints.name],
                           textCapitalization: TextCapitalization.words,
                           obscureText: false,
@@ -422,15 +469,11 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 12.0, 20.0, 12.0),
                         child: TextFormField(
-                          controller: _model.myBioController ??=
-                              TextEditingController(
-                            text: createEventEventsRecord?.description,
-                          ),
+                          controller: _model.myBioController,
                           focusNode: _model.myBioFocusNode,
                           textCapitalization: TextCapitalization.sentences,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelText: 'Short Description',
                             labelStyle:
                                 FlutterFlowTheme.of(context).labelMedium,
                             hintText: 'Short Description',
@@ -589,11 +632,12 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                       category:
                                           createEventEventsRecord?.category,
                                       address: createEventEventsRecord?.address,
+                                      image: createEventEventsRecord?.image,
                                     ));
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
                                     content: Text(
-                                      'Profile has been updated!',
+                                      'Event has been created!',
                                       style: FlutterFlowTheme.of(context)
                                           .titleSmall
                                           .override(

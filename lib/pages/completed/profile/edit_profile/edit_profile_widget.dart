@@ -1,9 +1,10 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/pages/completed/profile/edit_profile_auth_2/edit_profile_auth2_widget.dart';
+import '/pages/completed/profile/edit_profile_widget/edit_profile_widget_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'edit_profile_model.dart';
 export 'edit_profile_model.dart';
 
@@ -43,14 +44,17 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
       );
     }
 
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
           ? FocusScope.of(context).requestFocus(_model.unfocusNode)
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
+        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: AppBar(
-          backgroundColor: Colors.white,
+          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           automaticallyImplyLeading: false,
           leading: FlutterFlowIconButton(
             borderColor: Colors.transparent,
@@ -66,17 +70,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
               context.pop();
             },
           ),
-          title: Text(
-            'Page Title',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Outfit',
-                  color: const Color(0xFFFF9900),
-                  fontSize: 22.0,
-                ),
-          ),
           actions: const [],
           centerTitle: true,
-          elevation: 2.0,
+          elevation: 0.0,
         ),
         body: Align(
           alignment: const AlignmentDirectional(0.0, 1.0),
@@ -102,9 +98,9 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               0.0, 50.0, 0.0, 0.0),
                           child: wrapWithModel(
-                            model: _model.editProfileAuth2Model,
+                            model: _model.editProfileWidgetModel,
                             updateCallback: () => setState(() {}),
-                            child: EditProfileAuth2Widget(
+                            child: EditProfileWidgetWidget(
                               title: 'Edit Profile',
                               confirmButtonText: 'Save Changes',
                               navigateAction: () async {

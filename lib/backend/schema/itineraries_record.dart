@@ -31,28 +31,40 @@ class ItinerariesRecord extends FirestoreRecord {
   String get slogan => _slogan ?? '';
   bool hasSlogan() => _slogan != null;
 
-  // "Evaluation" field.
-  double? _evaluation;
-  double get evaluation => _evaluation ?? 0.0;
-  bool hasEvaluation() => _evaluation != null;
-
-  // "Durationdays" field.
-  int? _durationdays;
-  int get durationdays => _durationdays ?? 0;
-  bool hasDurationdays() => _durationdays != null;
-
   // "image" field.
   String? _image;
   String get image => _image ?? '';
   bool hasImage() => _image != null;
 
+  // "evaluation" field.
+  double? _evaluation;
+  double get evaluation => _evaluation ?? 0.0;
+  bool hasEvaluation() => _evaluation != null;
+
+  // "durationdays" field.
+  int? _durationdays;
+  int get durationdays => _durationdays ?? 0;
+  bool hasDurationdays() => _durationdays != null;
+
+  // "city" field.
+  String? _city;
+  String get city => _city ?? '';
+  bool hasCity() => _city != null;
+
+  // "country" field.
+  String? _country;
+  String get country => _country ?? '';
+  bool hasCountry() => _country != null;
+
   void _initializeFields() {
     _title = snapshotData['title'] as String?;
     _description = snapshotData['description'] as String?;
     _slogan = snapshotData['slogan'] as String?;
-    _evaluation = castToType<double>(snapshotData['Evaluation']);
-    _durationdays = castToType<int>(snapshotData['Durationdays']);
     _image = snapshotData['image'] as String?;
+    _evaluation = castToType<double>(snapshotData['evaluation']);
+    _durationdays = castToType<int>(snapshotData['durationdays']);
+    _city = snapshotData['city'] as String?;
+    _country = snapshotData['country'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -93,18 +105,22 @@ Map<String, dynamic> createItinerariesRecordData({
   String? title,
   String? description,
   String? slogan,
+  String? image,
   double? evaluation,
   int? durationdays,
-  String? image,
+  String? city,
+  String? country,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'title': title,
       'description': description,
       'slogan': slogan,
-      'Evaluation': evaluation,
-      'Durationdays': durationdays,
       'image': image,
+      'evaluation': evaluation,
+      'durationdays': durationdays,
+      'city': city,
+      'country': country,
     }.withoutNulls,
   );
 
@@ -119,9 +135,11 @@ class ItinerariesRecordDocumentEquality implements Equality<ItinerariesRecord> {
     return e1?.title == e2?.title &&
         e1?.description == e2?.description &&
         e1?.slogan == e2?.slogan &&
+        e1?.image == e2?.image &&
         e1?.evaluation == e2?.evaluation &&
         e1?.durationdays == e2?.durationdays &&
-        e1?.image == e2?.image;
+        e1?.city == e2?.city &&
+        e1?.country == e2?.country;
   }
 
   @override
@@ -129,9 +147,11 @@ class ItinerariesRecordDocumentEquality implements Equality<ItinerariesRecord> {
         e?.title,
         e?.description,
         e?.slogan,
+        e?.image,
         e?.evaluation,
         e?.durationdays,
-        e?.image
+        e?.city,
+        e?.country
       ]);
 
   @override

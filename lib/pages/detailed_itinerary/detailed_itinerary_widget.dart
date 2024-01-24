@@ -4,6 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'detailed_itinerary_model.dart';
 export 'detailed_itinerary_model.dart';
 
@@ -43,6 +44,8 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
         ),
       );
     }
+
+    context.watch<FFAppState>();
 
     return GestureDetector(
       onTap: () => _model.unfocusNode.canRequestFocus
@@ -90,42 +93,25 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                             children: [
                               Align(
                                 alignment: const AlignmentDirectional(0.0, 0.0),
-                                child: Stack(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Align(
                                       alignment:
-                                          const AlignmentDirectional(0.0, -0.9),
-                                      child: Text(
-                                        '10:00 - 12:30',
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleMedium,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -0.35),
+                                          const AlignmentDirectional(0.0, -1.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 25.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Text(
-                                          'Start at Puerta del Sol, a bustling square. Visit Madrid\'s iconic statue, the Bear and the Strawberry Tree, and the Kilometer Zero marker.',
-                                          textAlign: TextAlign.center,
+                                          '10:00 - 12:30',
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
+                                              .titleMedium,
                                         ),
                                       ),
                                     ),
                                     Align(
-                                      alignment:
-                                          const AlignmentDirectional(-0.02, -0.73),
+                                      alignment: const AlignmentDirectional(0.0, 0.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 10.0, 0.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Text(
                                           'Puerta del Sol & Bear and Strawberry Tree',
                                           textAlign: TextAlign.center,
@@ -140,42 +126,28 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                     ),
                                     Align(
                                       alignment: const AlignmentDirectional(0.0, 0.5),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.asset(
-                                          'assets/images/f_i_pg_111009_puerta_sol_-1.jpg',
-                                          width: 300.0,
-                                          height: 200.0,
-                                          fit: BoxFit.cover,
-                                          alignment: const Alignment(0.0, 0.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          child: Image.asset(
+                                            'assets/images/f_i_pg_111009_puerta_sol_-1.jpg',
+                                            width: 300.0,
+                                            height: 200.0,
+                                            fit: BoxFit.cover,
+                                            alignment: const Alignment(0.0, 0.0),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
-                                child: Stack(
-                                  children: [
                                     Align(
                                       alignment:
-                                          const AlignmentDirectional(0.0, -0.9),
-                                      child: Text(
-                                        '12:30 - 14:00',
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleMedium,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -0.5),
+                                          const AlignmentDirectional(0.0, -0.35),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 25.0),
+                                        padding: const EdgeInsets.all(25.0),
                                         child: Text(
-                                          'Head to Mercado de San Miguel for a diverse array of Spanish cuisine. Try tapas, fresh seafood, and local delicacies.',
+                                          'Start at Puerta del Sol, a bustling square. Visit Madrid\'s iconic statue, the Bear and the Strawberry Tree, and the Kilometer Zero marker.',
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -187,26 +159,41 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                         ),
                                       ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                              Align(
+                                alignment: const AlignmentDirectional(0.0, 0.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
                                     Align(
                                       alignment:
-                                          const AlignmentDirectional(-0.02, -0.73),
+                                          const AlignmentDirectional(0.0, -1.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 10.0, 0.0),
+                                        padding: const EdgeInsets.all(10.0),
                                         child: Text(
-                                          'Mercado de San Miguel',
-                                          textAlign: TextAlign.center,
+                                          '12:30 - 14:00',
                                           style: FlutterFlowTheme.of(context)
-                                              .displayMedium
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 34.0,
-                                              ),
+                                              .titleMedium,
                                         ),
                                       ),
                                     ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(0.0, 1.0),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'Mercado de San Miguel',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .displayMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 34.0,
+                                            ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
@@ -220,30 +207,12 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
-                                child: Stack(
-                                  children: [
                                     Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -0.9),
-                                      child: Text(
-                                        '14:00 - 16:00',
-                                        style: FlutterFlowTheme.of(context)
-                                            .titleMedium,
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -0.35),
+                                      alignment: const AlignmentDirectional(0.0, 1.0),
                                       child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 25.0),
+                                        padding: const EdgeInsets.all(25.0),
                                         child: Text(
-                                          'Explore the Royal Palace of Madrid. Marvel at its grandeur, the lavish interiors, and the beautiful Sabatini Gardens.',
+                                          'Head to Mercado de San Miguel for a diverse array of Spanish cuisine. Try tapas, fresh seafood, and local delicacies.',
                                           textAlign: TextAlign.center,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
@@ -255,99 +224,113 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                         ),
                                       ),
                                     ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(-0.02, -0.73),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 10.0, 0.0),
-                                        child: Text(
-                                          'Royal Palace of Madrid',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .displayMedium
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 34.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, 0.55),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        child: Image.asset(
-                                          'assets/images/WhatsApp_Image_2023-12-27_at_17.32.44.jpeg',
-                                          width: 306.0,
-                                          height: 200.0,
-                                          fit: BoxFit.cover,
-                                          alignment: const Alignment(0.0, 0.0),
-                                        ),
-                                      ),
-                                    ),
                                   ],
                                 ),
                               ),
-                              Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
-                                child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -0.9),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, -1.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Text(
                                         '14:00 - 16:00',
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium,
                                       ),
                                     ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -0.35),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 25.0),
-                                        child: Text(
-                                          'Explore the Royal Palace of Madrid. Marvel at its grandeur, the lavish interiors, and the beautiful Sabatini Gardens.',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                        ),
+                                  ),
+                                  Align(
+                                    alignment:
+                                        const AlignmentDirectional(-0.02, -0.73),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'Royal Palace of Madrid',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .displayMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 34.0,
+                                            ),
                                       ),
                                     ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(-0.02, -0.73),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 10.0, 0.0),
-                                        child: Text(
-                                          'Royal Palace of Madrid',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .displayMedium
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 34.0,
-                                              ),
-                                        ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.asset(
+                                        'assets/images/WhatsApp_Image_2023-12-27_at_17.32.44.jpeg',
+                                        width: 309.0,
+                                        height: 200.0,
+                                        fit: BoxFit.cover,
+                                        alignment: const Alignment(0.0, 0.0),
                                       ),
                                     ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.5),
+                                  ),
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, -0.35),
+                                    child: Padding(
+                                      padding: const EdgeInsetsDirectional.fromSTEB(
+                                          25.0, 25.0, 25.0, 25.0),
+                                      child: Text(
+                                        'Explore the Royal Palace of Madrid. Marvel at its grandeur, the lavish interiors, and the beautiful Sabatini Gardens.',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, -0.9),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        '14:00 - 16:00',
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleMedium,
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment:
+                                        const AlignmentDirectional(-0.02, -0.73),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        'Barrio de las Letras - Cervantes & Lope de Vega',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .displayMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 34.0,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, 0.5),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                         child: Image.network(
-                                          'https://picsum.photos/seed/413/600',
+                                          'https://cabila.com/wp-content/uploads/2022/09/Barrio-Las-Letras-Madrid.jpg',
                                           width: 300.0,
                                           height: 200.0,
                                           fit: BoxFit.cover,
@@ -355,66 +338,62 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, -0.35),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(25.0),
+                                      child: Text(
+                                        'Wander through the historic Barrio de las Letras (Literary Quarter). Visit Cervantes House Museum and Lope de Vega\'s House.',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Align(
-                                alignment: const AlignmentDirectional(0.0, 1.0),
-                                child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -0.9),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, -0.9),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
                                       child: Text(
                                         '14:00 - 16:00',
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium,
                                       ),
                                     ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(0.0, -0.35),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            25.0, 25.0, 25.0, 25.0),
-                                        child: Text(
-                                          'Explore the Royal Palace of Madrid. Marvel at its grandeur, the lavish interiors, and the beautiful Sabatini Gardens.',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                        ),
-                                      ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Text(
+                                      'El Retiro Park',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .displayMedium
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            fontSize: 34.0,
+                                          ),
                                     ),
-                                    Align(
-                                      alignment:
-                                          const AlignmentDirectional(-0.02, -0.73),
-                                      child: Padding(
-                                        padding: const EdgeInsetsDirectional.fromSTEB(
-                                            10.0, 0.0, 10.0, 0.0),
-                                        child: Text(
-                                          'Royal Palace of Madrid',
-                                          textAlign: TextAlign.center,
-                                          style: FlutterFlowTheme.of(context)
-                                              .displayMedium
-                                              .override(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 34.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: const AlignmentDirectional(0.0, 0.5),
+                                  ),
+                                  Align(
+                                    alignment: const AlignmentDirectional(0.0, 0.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
                                       child: ClipRRect(
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                         child: Image.network(
-                                          'https://picsum.photos/seed/413/600',
+                                          'https://images.unsplash.com/photo-1645203494470-1507ae7f1a40?crop=entropy&cs=srgb&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwxOHx8JTIwcmV0aXJvJTIwcGFya3xlbnwwfHx8fDE3MDYwMTUwNTZ8MA&ixlib=rb-4.0.3&q=85',
                                           width: 300.0,
                                           height: 200.0,
                                           fit: BoxFit.cover,
@@ -422,8 +401,22 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(25.0),
+                                    child: Text(
+                                      'Enjoy a leisurely walk in Retiro Park. Rent a rowboat at the lake, explore the Crystal Palace, and visit the Rose Garden.',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.normal,
+                                          ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

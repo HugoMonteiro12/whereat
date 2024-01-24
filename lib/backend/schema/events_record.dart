@@ -40,15 +40,15 @@ class EventsRecord extends FirestoreRecord {
   String get category => _category ?? '';
   bool hasCategory() => _category != null;
 
-  // "Image" field.
-  List<String>? _image;
-  List<String> get image => _image ?? const [];
-  bool hasImage() => _image != null;
-
   // "address" field.
   String? _address;
   String get address => _address ?? '';
   bool hasAddress() => _address != null;
+
+  // "image" field.
+  String? _image;
+  String get image => _image ?? '';
+  bool hasImage() => _image != null;
 
   void _initializeFields() {
     _date = snapshotData['date'] as DateTime?;
@@ -56,8 +56,8 @@ class EventsRecord extends FirestoreRecord {
     _location = snapshotData['location'] as String?;
     _description = snapshotData['description'] as String?;
     _category = snapshotData['Category'] as String?;
-    _image = getDataList(snapshotData['Image']);
     _address = snapshotData['address'] as String?;
+    _image = snapshotData['image'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -100,6 +100,7 @@ Map<String, dynamic> createEventsRecordData({
   String? description,
   String? category,
   String? address,
+  String? image,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -109,6 +110,7 @@ Map<String, dynamic> createEventsRecordData({
       'description': description,
       'Category': category,
       'address': address,
+      'image': image,
     }.withoutNulls,
   );
 
@@ -120,14 +122,13 @@ class EventsRecordDocumentEquality implements Equality<EventsRecord> {
 
   @override
   bool equals(EventsRecord? e1, EventsRecord? e2) {
-    const listEquality = ListEquality();
     return e1?.date == e2?.date &&
         e1?.name == e2?.name &&
         e1?.location == e2?.location &&
         e1?.description == e2?.description &&
         e1?.category == e2?.category &&
-        listEquality.equals(e1?.image, e2?.image) &&
-        e1?.address == e2?.address;
+        e1?.address == e2?.address &&
+        e1?.image == e2?.image;
   }
 
   @override
@@ -137,8 +138,8 @@ class EventsRecordDocumentEquality implements Equality<EventsRecord> {
         e?.location,
         e?.description,
         e?.category,
-        e?.image,
-        e?.address
+        e?.address,
+        e?.image
       ]);
 
   @override

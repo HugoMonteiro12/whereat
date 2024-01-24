@@ -2,19 +2,20 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'event_model.dart';
 export 'event_model.dart';
 
 class EventWidget extends StatefulWidget {
   const EventWidget({
     super.key,
-    required this.event,
+    required this.eventDetails,
   });
 
-  final String? event;
+  final DocumentReference? eventDetails;
 
   @override
   _EventWidgetState createState() => _EventWidgetState();
@@ -49,10 +50,10 @@ class _EventWidgetState extends State<EventWidget> {
       );
     }
 
-    return StreamBuilder<List<EventsRecord>>(
-      stream: queryEventsRecord(
-        singleRecord: true,
-      ),
+    context.watch<FFAppState>();
+
+    return StreamBuilder<EventsRecord>(
+      stream: EventsRecord.getDocument(widget.eventDetails!),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -71,14 +72,7 @@ class _EventWidgetState extends State<EventWidget> {
             ),
           );
         }
-        List<EventsRecord> eventEventsRecordList = snapshot.data!;
-        // Return an empty Container when the item does not exist.
-        if (snapshot.data!.isEmpty) {
-          return Container();
-        }
-        final eventEventsRecord = eventEventsRecordList.isNotEmpty
-            ? eventEventsRecordList.first
-            : null;
+        final eventEventsRecord = snapshot.data!;
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
@@ -104,9 +98,9 @@ class _EventWidgetState extends State<EventWidget> {
                 },
               ),
               title: Text(
-                'Page Title',
+                'Where@',
                 style: FlutterFlowTheme.of(context).displaySmall.override(
-                      fontFamily: 'Outfit',
+                      fontFamily: 'Righteous',
                       color: const Color(0xFFFF9900),
                     ),
               ),
@@ -119,45 +113,16 @@ class _EventWidgetState extends State<EventWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Builder(
-                    builder: (context) {
-                      final image = (eventEventsRecord?.image.toList() ?? [])
-                          .take(3)
-                          .toList();
-                      return SizedBox(
-                        width: double.infinity,
-                        height: 300.0,
-                        child: CarouselSlider.builder(
-                          itemCount: image.length,
-                          itemBuilder: (context, imageIndex, _) {
-                            final imageItem = image[imageIndex];
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Image.network(
-                                imageItem,
-                                width: double.infinity,
-                                height: 241.0,
-                                fit: BoxFit.cover,
-                              ),
-                            );
-                          },
-                          carouselController: _model.carouselController ??=
-                              CarouselController(),
-                          options: CarouselOptions(
-                            initialPage: min(1, image.length - 1),
-                            viewportFraction: 0.5,
-                            disableCenter: true,
-                            enlargeCenterPage: true,
-                            enlargeFactor: 0.25,
-                            enableInfiniteScroll: true,
-                            scrollDirection: Axis.horizontal,
-                            autoPlay: false,
-                            onPageChanged: (index, _) =>
-                                _model.carouselCurrentIndex = index,
-                          ),
-                        ),
-                      );
-                    },
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: CachedNetworkImage(
+                      fadeInDuration: const Duration(milliseconds: 500),
+                      fadeOutDuration: const Duration(milliseconds: 500),
+                      imageUrl: eventEventsRecord.image,
+                      width: double.infinity,
+                      height: 241.0,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   Align(
                     alignment: const AlignmentDirectional(0.0, -1.0),
@@ -166,7 +131,7 @@ class _EventWidgetState extends State<EventWidget> {
                           const EdgeInsetsDirectional.fromSTEB(10.0, 12.0, 0.0, 12.0),
                       child: Text(
                         valueOrDefault<String>(
-                          eventEventsRecord?.name,
+                          eventEventsRecord.name,
                           'Nome',
                         ),
                         style: FlutterFlowTheme.of(context).headlineMedium,
@@ -185,7 +150,7 @@ class _EventWidgetState extends State<EventWidget> {
                               0.0, 8.0, 0.0, 0.0),
                           child: Text(
                             valueOrDefault<String>(
-                              eventEventsRecord?.category,
+                              eventEventsRecord.category,
                               'Category',
                             ),
                             style: FlutterFlowTheme.of(context).headlineSmall,
@@ -197,7 +162,7 @@ class _EventWidgetState extends State<EventWidget> {
                           child: Text(
                             dateTimeFormat(
                               'MMMM, EEEE d || H:mm',
-                              eventEventsRecord!.date!,
+                              eventEventsRecord.date!,
                               locale: FFLocalizations.of(context).languageCode,
                             ),
                             style: FlutterFlowTheme.of(context)
