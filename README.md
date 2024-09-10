@@ -2,7 +2,7 @@ A Flutter-based mobile application developed as part of the Technology and Busin
 
 Key Features:
 
-City Exploration: Browse a curated list of cities from different continents.
+City Exploration: Browse a curated list of cities from different continents. /n
 Itinerary Creation:
 Event Discovery:
 User Profiles:
