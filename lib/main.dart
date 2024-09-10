@@ -7,7 +7,7 @@ import 'auth/firebase_auth/firebase_user_provider.dart';
 import 'auth/firebase_auth/auth_util.dart';
 
 import 'backend/firebase/firebase_config.dart';
-import 'flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
@@ -15,6 +15,7 @@ import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
   await initFirebase();
 
@@ -40,12 +41,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
-  ThemeMode _themeMode = ThemeMode.system;
 
-  late Stream<BaseAuthUser> userStream;
+  ThemeMode _themeMode = ThemeMode.system;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
+
+  late Stream<BaseAuthUser> userStream;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
 
@@ -56,7 +58,9 @@ class _MyAppState extends State<MyApp> {
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
     userStream = whereatFirebaseUserStream()
-      ..listen((user) => _appStateNotifier.update(user));
+      ..listen((user) {
+        _appStateNotifier.update(user);
+      });
     jwtTokenStream.listen((_) {});
     Future.delayed(
       const Duration(milliseconds: 500),
@@ -72,10 +76,10 @@ class _MyAppState extends State<MyApp> {
   }
 
   void setLocale(String language) {
-    setState(() => _locale = createLocale(language));
+    safeSetState(() => _locale = createLocale(language));
   }
 
-  void setThemeMode(ThemeMode mode) => setState(() {
+  void setThemeMode(ThemeMode mode) => safeSetState(() {
         _themeMode = mode;
       });
 
@@ -95,7 +99,7 @@ class _MyAppState extends State<MyApp> {
       ],
       theme: ThemeData(
         brightness: Brightness.light,
-        scrollbarTheme: const ScrollbarThemeData(),
+        useMaterial3: false,
       ),
       themeMode: _themeMode,
       routerConfig: _router,
@@ -128,9 +132,10 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
+      'Profile': const ProfileWidget(),
       'HomePage': const HomePageWidget(),
       'ITIdeas': const ITIdeasWidget(),
-      'Profile': const ProfileWidget(),
+      'chat_main': const ChatMainWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -145,7 +150,7 @@ class _NavBarPageState extends State<NavBarPage> {
       extendBody: true,
       bottomNavigationBar: FloatingNavbar(
         currentIndex: currentIndex,
-        onTap: (i) => setState(() {
+        onTap: (i) => safeSetState(() {
           _currentPage = null;
           _currentPageName = tabs.keys.toList()[i];
         }),
@@ -165,12 +170,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_filled,
+                  Icons.person,
                   color:
                       currentIndex == 0 ? const Color(0xFFFF9900) : const Color(0x8A000000),
+                  size: 35.0,
                 ),
                 Text(
-                  'Home',
+                  'Profile',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
@@ -187,13 +193,12 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  FFIcons.kgroup42,
+                  Icons.home_filled,
                   color:
                       currentIndex == 1 ? const Color(0xFFFF9900) : const Color(0x8A000000),
-                  size: 34.0,
                 ),
                 Text(
-                  'Itineraries',
+                  'Home',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -210,16 +215,39 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.person,
+                  FFIcons.kgroup42,
                   color:
                       currentIndex == 2 ? const Color(0xFFFF9900) : const Color(0x8A000000),
-                  size: 35.0,
+                  size: 34.0,
                 ),
                 Text(
-                  'Profile',
+                  'Itineraries',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
+                        ? const Color(0xFFFF9900)
+                        : const Color(0x8A000000),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.forum_outlined,
+                  color:
+                      currentIndex == 3 ? const Color(0xFFFF9900) : const Color(0x8A000000),
+                  size: 24.0,
+                ),
+                Text(
+                  'Chat',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 3
                         ? const Color(0xFFFF9900)
                         : const Color(0x8A000000),
                     fontSize: 11.0,

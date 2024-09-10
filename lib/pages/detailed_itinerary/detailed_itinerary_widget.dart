@@ -3,8 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'detailed_itinerary_model.dart';
 export 'detailed_itinerary_model.dart';
 
@@ -12,7 +10,7 @@ class DetailedItineraryWidget extends StatefulWidget {
   const DetailedItineraryWidget({super.key});
 
   @override
-  _DetailedItineraryWidgetState createState() =>
+  State<DetailedItineraryWidget> createState() =>
       _DetailedItineraryWidgetState();
 }
 
@@ -36,21 +34,8 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -70,6 +55,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                     style: FlutterFlowTheme.of(context).headlineLarge.override(
                           fontFamily: 'Outfit',
                           fontSize: 34.0,
+                          letterSpacing: 0.0,
                           fontWeight: FontWeight.w500,
                         ),
                   ),
@@ -104,7 +90,11 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                         child: Text(
                                           '10:00 - 12:30',
                                           style: FlutterFlowTheme.of(context)
-                                              .titleMedium,
+                                              .titleMedium
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
                                       ),
                                     ),
@@ -120,6 +110,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                               .override(
                                                 fontFamily: 'Outfit',
                                                 fontSize: 34.0,
+                                                letterSpacing: 0.0,
                                               ),
                                         ),
                                       ),
@@ -154,6 +145,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                               .override(
                                                 fontFamily: 'Outfit',
                                                 fontSize: 20.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
@@ -175,7 +167,11 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                         child: Text(
                                           '12:30 - 14:00',
                                           style: FlutterFlowTheme.of(context)
-                                              .titleMedium,
+                                              .titleMedium
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
                                       ),
                                     ),
@@ -189,6 +185,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                             .override(
                                               fontFamily: 'Outfit',
                                               fontSize: 34.0,
+                                              letterSpacing: 0.0,
                                             ),
                                       ),
                                     ),
@@ -219,6 +216,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                               .override(
                                                 fontFamily: 'Outfit',
                                                 fontSize: 20.0,
+                                                letterSpacing: 0.0,
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
@@ -237,7 +235,11 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                       child: Text(
                                         '14:00 - 16:00',
                                         style: FlutterFlowTheme.of(context)
-                                            .titleMedium,
+                                            .titleMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -254,6 +256,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                             .override(
                                               fontFamily: 'Outfit',
                                               fontSize: 34.0,
+                                              letterSpacing: 0.0,
                                             ),
                                       ),
                                     ),
@@ -284,6 +287,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                             .override(
                                               fontFamily: 'Outfit',
                                               fontSize: 20.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
                                             ),
                                       ),
@@ -301,7 +305,11 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                       child: Text(
                                         '14:00 - 16:00',
                                         style: FlutterFlowTheme.of(context)
-                                            .titleMedium,
+                                            .titleMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -318,6 +326,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                             .override(
                                               fontFamily: 'Outfit',
                                               fontSize: 34.0,
+                                              letterSpacing: 0.0,
                                             ),
                                       ),
                                     ),
@@ -351,6 +360,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                             .override(
                                               fontFamily: 'Outfit',
                                               fontSize: 20.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
                                             ),
                                       ),
@@ -368,7 +378,11 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                       child: Text(
                                         '14:00 - 16:00',
                                         style: FlutterFlowTheme.of(context)
-                                            .titleMedium,
+                                            .titleMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
                                     ),
                                   ),
@@ -382,6 +396,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                           .override(
                                             fontFamily: 'Outfit',
                                             fontSize: 34.0,
+                                            letterSpacing: 0.0,
                                           ),
                                     ),
                                   ),
@@ -412,6 +427,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                           .override(
                                             fontFamily: 'Outfit',
                                             fontSize: 20.0,
+                                            letterSpacing: 0.0,
                                             fontWeight: FontWeight.normal,
                                           ),
                                     ),
@@ -437,6 +453,7 @@ class _DetailedItineraryWidgetState extends State<DetailedItineraryWidget> {
                                   duration: const Duration(milliseconds: 500),
                                   curve: Curves.ease,
                                 );
+                                safeSetState(() {});
                               },
                               effect: smooth_page_indicator.ExpandingDotsEffect(
                                 expansionFactor: 3.0,

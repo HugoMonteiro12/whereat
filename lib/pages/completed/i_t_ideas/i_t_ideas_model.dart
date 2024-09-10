@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 class ITIdeasModel extends FlutterFlowModel<ITIdeasWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for TextField widget.
   final textFieldKey = GlobalKey();
   FocusNode? textFieldFocusNode;
@@ -15,18 +14,11 @@ class ITIdeasModel extends FlutterFlowModel<ITIdeasWidget> {
   String? Function(BuildContext, String?)? textControllerValidator;
   List<ItinerariesRecord> simpleSearchResults = [];
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     textFieldFocusNode?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

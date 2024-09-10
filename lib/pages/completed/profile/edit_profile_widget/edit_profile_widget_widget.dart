@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'edit_profile_widget_model.dart';
 export 'edit_profile_widget_model.dart';
 
@@ -21,10 +20,10 @@ class EditProfileWidgetWidget extends StatefulWidget {
 
   final String title;
   final String confirmButtonText;
-  final Future<dynamic> Function()? navigateAction;
+  final Future Function()? navigateAction;
 
   @override
-  _EditProfileWidgetWidgetState createState() =>
+  State<EditProfileWidgetWidget> createState() =>
       _EditProfileWidgetWidgetState();
 }
 
@@ -42,15 +41,15 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
     super.initState();
     _model = createModel(context, () => EditProfileWidgetModel());
 
-    _model.yourNameController ??=
+    _model.yourNameTextController ??=
         TextEditingController(text: currentUserDisplayName);
     _model.yourNameFocusNode ??= FocusNode();
 
-    _model.phonenumberController ??=
+    _model.phonenumberTextController ??=
         TextEditingController(text: currentPhoneNumber);
     _model.phonenumberFocusNode ??= FocusNode();
 
-    _model.myBioController ??= TextEditingController(
+    _model.myBioTextController ??= TextEditingController(
         text: valueOrDefault(currentUserDocument?.shortDescription, ''));
     _model.myBioFocusNode ??= FocusNode();
   }
@@ -64,8 +63,6 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Form(
       key: _model.formKey,
       autovalidateMode: AutovalidateMode.disabled,
@@ -80,6 +77,7 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
               style: FlutterFlowTheme.of(context).headlineLarge.override(
                     fontFamily: 'Outfit',
                     color: FlutterFlowTheme.of(context).primaryText,
+                    letterSpacing: 0.0,
                   ),
             ),
           ),
@@ -90,6 +88,7 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
               style: FlutterFlowTheme.of(context).labelLarge.override(
                     fontFamily: 'Outfit',
                     color: FlutterFlowTheme.of(context).primaryText,
+                    letterSpacing: 0.0,
                   ),
             ),
           ),
@@ -150,7 +149,7 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                   if (selectedMedia != null &&
                       selectedMedia.every(
                           (m) => validateFileFormat(m.storagePath, context))) {
-                    setState(() => _model.isDataUploading1 = true);
+                    safeSetState(() => _model.isDataUploading1 = true);
                     var selectedUploadedFiles = <FFUploadedFile>[];
 
                     var downloadUrls = <String>[];
@@ -178,12 +177,12 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                     }
                     if (selectedUploadedFiles.length == selectedMedia.length &&
                         downloadUrls.length == selectedMedia.length) {
-                      setState(() {
+                      safeSetState(() {
                         _model.uploadedLocalFile1 = selectedUploadedFiles.first;
                         _model.uploadedFileUrl1 = downloadUrls.first;
                       });
                     } else {
-                      setState(() {});
+                      safeSetState(() {});
                       return;
                     }
                   }
@@ -196,7 +195,10 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                   iconPadding:
                       const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).primaryBackground,
-                  textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                  textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Outfit',
+                        letterSpacing: 0.0,
+                      ),
                   elevation: 1.0,
                   borderSide: BorderSide(
                     color: FlutterFlowTheme.of(context).alternate,
@@ -211,19 +213,26 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
             padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
             child: AuthUserStreamWidget(
               builder: (context) => TextFormField(
-                controller: _model.yourNameController,
+                controller: _model.yourNameTextController,
                 focusNode: _model.yourNameFocusNode,
                 autofillHints: const [AutofillHints.name],
                 textCapitalization: TextCapitalization.words,
                 obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Full Name',
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'Outfit',
+                        letterSpacing: 0.0,
+                      ),
                   hintText: 'Your full name...',
-                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'Outfit',
+                        letterSpacing: 0.0,
+                      ),
                   errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Outfit',
                         color: FlutterFlowTheme.of(context).error,
+                        letterSpacing: 0.0,
                       ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -258,10 +267,13 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                   contentPadding:
                       const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 12.0),
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Outfit',
+                      letterSpacing: 0.0,
+                    ),
                 cursorColor: FlutterFlowTheme.of(context).primary,
                 validator:
-                    _model.yourNameControllerValidator.asValidator(context),
+                    _model.yourNameTextControllerValidator.asValidator(context),
               ),
             ),
           ),
@@ -269,19 +281,26 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
             padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
             child: AuthUserStreamWidget(
               builder: (context) => TextFormField(
-                controller: _model.phonenumberController,
+                controller: _model.phonenumberTextController,
                 focusNode: _model.phonenumberFocusNode,
                 autofillHints: const [AutofillHints.name],
                 textCapitalization: TextCapitalization.words,
                 obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Phone number',
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'Outfit',
+                        letterSpacing: 0.0,
+                      ),
                   hintText: 'Your phone number...',
-                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'Outfit',
+                        letterSpacing: 0.0,
+                      ),
                   errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Outfit',
                         color: FlutterFlowTheme.of(context).error,
+                        letterSpacing: 0.0,
                       ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -316,11 +335,14 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                   contentPadding:
                       const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 12.0),
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Outfit',
+                      letterSpacing: 0.0,
+                    ),
                 keyboardType: TextInputType.phone,
                 cursorColor: FlutterFlowTheme.of(context).primary,
-                validator:
-                    _model.phonenumberControllerValidator.asValidator(context),
+                validator: _model.phonenumberTextControllerValidator
+                    .asValidator(context),
               ),
             ),
           ),
@@ -328,18 +350,25 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
             padding: const EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 12.0),
             child: AuthUserStreamWidget(
               builder: (context) => TextFormField(
-                controller: _model.myBioController,
+                controller: _model.myBioTextController,
                 focusNode: _model.myBioFocusNode,
                 textCapitalization: TextCapitalization.sentences,
                 obscureText: false,
                 decoration: InputDecoration(
                   labelText: 'Short Description',
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
+                  labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'Outfit',
+                        letterSpacing: 0.0,
+                      ),
                   hintText: 'A little about you...',
-                  hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                  hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                        fontFamily: 'Outfit',
+                        letterSpacing: 0.0,
+                      ),
                   errorStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Outfit',
                         color: FlutterFlowTheme.of(context).error,
+                        letterSpacing: 0.0,
                       ),
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -374,11 +403,15 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                   contentPadding:
                       const EdgeInsetsDirectional.fromSTEB(16.0, 12.0, 0.0, 12.0),
                 ),
-                style: FlutterFlowTheme.of(context).bodyMedium,
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Outfit',
+                      letterSpacing: 0.0,
+                    ),
                 textAlign: TextAlign.start,
                 maxLines: 3,
                 cursorColor: FlutterFlowTheme.of(context).primary,
-                validator: _model.myBioControllerValidator.asValidator(context),
+                validator:
+                    _model.myBioTextControllerValidator.asValidator(context),
               ),
             ),
           ),
@@ -390,7 +423,10 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
               children: [
                 Text(
                   'Your header',
-                  style: FlutterFlowTheme.of(context).bodyMedium,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Outfit',
+                        letterSpacing: 0.0,
+                      ),
                 ),
                 Align(
                   alignment: const AlignmentDirectional(0.0, -1.0),
@@ -405,7 +441,7 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                       if (selectedMedia != null &&
                           selectedMedia.every((m) =>
                               validateFileFormat(m.storagePath, context))) {
-                        setState(() => _model.isDataUploading2 = true);
+                        safeSetState(() => _model.isDataUploading2 = true);
                         var selectedUploadedFiles = <FFUploadedFile>[];
 
                         var downloadUrls = <String>[];
@@ -435,13 +471,13 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                         if (selectedUploadedFiles.length ==
                                 selectedMedia.length &&
                             downloadUrls.length == selectedMedia.length) {
-                          setState(() {
+                          safeSetState(() {
                             _model.uploadedLocalFile2 =
                                 selectedUploadedFiles.first;
                             _model.uploadedFileUrl2 = downloadUrls.first;
                           });
                         } else {
-                          setState(() {});
+                          safeSetState(() {});
                           return;
                         }
                       }
@@ -455,7 +491,11 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                       iconPadding:
                           const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                       color: FlutterFlowTheme.of(context).primaryBackground,
-                      textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                      textStyle:
+                          FlutterFlowTheme.of(context).bodyMedium.override(
+                                fontFamily: 'Outfit',
+                                letterSpacing: 0.0,
+                              ),
                       elevation: 1.0,
                       borderSide: BorderSide(
                         color: FlutterFlowTheme.of(context).alternate,
@@ -482,17 +522,17 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                     // updateUserInfo
 
                     await currentUserReference!.update(createUsersRecordData(
-                      displayName: _model.yourNameController.text,
+                      displayName: _model.yourNameTextController.text,
                       photoUrl: _model.uploadedFileUrl1 != ''
                           ? _model.uploadedFileUrl1
                           : currentUserPhoto,
-                      shortDescription: _model.myBioController.text,
+                      shortDescription: _model.myBioTextController.text,
                       lastActiveTime: getCurrentTimestamp,
                       profileHeader: _model.uploadedFileUrl2 != ''
                           ? _model.uploadedFileUrl2
                           : valueOrDefault(
                               currentUserDocument?.profileHeader, ''),
-                      phoneNumber: _model.phonenumberController.text,
+                      phoneNumber: _model.phonenumberTextController.text,
                     ));
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -502,6 +542,7 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                               FlutterFlowTheme.of(context).titleSmall.override(
                                     fontFamily: 'Outfit',
                                     color: FlutterFlowTheme.of(context).info,
+                                    letterSpacing: 0.0,
                                   ),
                         ),
                         duration: const Duration(milliseconds: 4000),
@@ -521,6 +562,7 @@ class _EditProfileWidgetWidgetState extends State<EditProfileWidgetWidget> {
                     textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                           fontFamily: 'Outfit',
                           color: FlutterFlowTheme.of(context).primaryBtnText,
+                          letterSpacing: 0.0,
                         ),
                     elevation: 3.0,
                     borderSide: const BorderSide(

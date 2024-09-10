@@ -3,9 +3,7 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'saveditineraries_model.dart';
 export 'saveditineraries_model.dart';
 
@@ -13,7 +11,7 @@ class SaveditinerariesWidget extends StatefulWidget {
   const SaveditinerariesWidget({super.key});
 
   @override
-  _SaveditinerariesWidgetState createState() => _SaveditinerariesWidgetState();
+  State<SaveditinerariesWidget> createState() => _SaveditinerariesWidgetState();
 }
 
 class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
@@ -36,17 +34,6 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return StreamBuilder<List<ItinerariesRecord>>(
       stream: queryItinerariesRecord(),
       builder: (context, snapshot) {
@@ -69,10 +56,9 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
         }
         List<ItinerariesRecord> saveditinerariesItinerariesRecordList =
             snapshot.data!;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -110,6 +96,7 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
                                 .override(
                                   fontFamily: 'Outfit',
                                   fontSize: 25.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
@@ -147,6 +134,7 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
                       builder: (context) {
                         final savedItineraries =
                             saveditinerariesItinerariesRecordList.toList();
+
                         return ListView.separated(
                           padding: EdgeInsets.zero,
                           primary: false,
@@ -214,13 +202,13 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
                                                 .bodyLarge
                                                 .override(
                                                   fontFamily: 'Outfit',
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
                                           RichText(
-                                            textScaleFactor:
-                                                MediaQuery.of(context)
-                                                    .textScaleFactor,
+                                            textScaler: MediaQuery.of(context)
+                                                .textScaler,
                                             text: TextSpan(
                                               children: [
                                                 TextSpan(
@@ -236,6 +224,7 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
@@ -247,7 +236,11 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
                                               ],
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                             ),
                                           ),
                                         ],
@@ -266,7 +259,11 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
                                               savedItinerariesItem.slogan,
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                             ),
                                           ),
                                           Padding(
@@ -278,7 +275,11 @@ class _SaveditinerariesWidgetState extends State<SaveditinerariesWidget> {
                                                   .toString(),
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                             ),
                                           ),
                                           Icon(

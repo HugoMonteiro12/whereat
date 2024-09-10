@@ -6,10 +6,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'profile_model.dart';
 export 'profile_model.dart';
 
@@ -17,7 +15,7 @@ class ProfileWidget extends StatefulWidget {
   const ProfileWidget({super.key});
 
   @override
-  _ProfileWidgetState createState() => _ProfileWidgetState();
+  State<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
@@ -40,21 +38,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -175,7 +160,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 child: AuthUserStreamWidget(
                   builder: (context) => Text(
                     currentUserDisplayName,
-                    style: FlutterFlowTheme.of(context).headlineSmall,
+                    style: FlutterFlowTheme.of(context).headlineSmall.override(
+                          fontFamily: 'Outfit',
+                          letterSpacing: 0.0,
+                        ),
                   ),
                 ),
               ),
@@ -184,7 +172,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
                   child: RichText(
-                    textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                    textScaler: MediaQuery.of(context).textScaler,
                     text: TextSpan(
                       children: [
                         TextSpan(
@@ -193,21 +181,35 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Outfit',
                                     color: FlutterFlowTheme.of(context).primary,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                         ),
                         TextSpan(
                           text: dateTimeFormat(
-                            'MMMMEEEEd',
+                            "MMMMEEEEd",
                             currentUserDocument!.lastActiveTime!,
                             locale: FFLocalizations.of(context).languageCode,
                           ),
                           style: const TextStyle(),
                         )
                       ],
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Outfit',
+                            letterSpacing: 0.0,
+                          ),
                     ),
                   ),
+                ),
+              ),
+              AuthUserStreamWidget(
+                builder: (context) => Text(
+                  valueOrDefault(currentUserDocument?.shortDescription, ''),
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                        fontFamily: 'Outfit',
+                        fontSize: 16.0,
+                        letterSpacing: 0.0,
+                      ),
                 ),
               ),
               Padding(
@@ -234,7 +236,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               BoxShadow(
                                 blurRadius: 12.0,
                                 color: Color(0x33000000),
-                                offset: Offset(0.0, 5.0),
+                                offset: Offset(
+                                  0.0,
+                                  5.0,
+                                ),
                               )
                             ],
                             borderRadius: BorderRadius.circular(8.0),
@@ -294,6 +299,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                     ? imageCitiesRecordList
                                                         .first
                                                     : null;
+
                                             return ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(8.0),
@@ -339,6 +345,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             List<CitiesRecord>
                                                 columnCitiesRecordList =
                                                 snapshot.data!;
+
                                             return Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: List.generate(
@@ -381,6 +388,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         .override(
                                           fontFamily: 'Outfit',
                                           fontSize: 20.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
@@ -408,9 +416,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         );
                                       }
                                       int richTextCount = snapshot.data!;
+
                                       return RichText(
-                                        textScaleFactor: MediaQuery.of(context)
-                                            .textScaleFactor,
+                                        textScaler:
+                                            MediaQuery.of(context).textScaler,
                                         text: TextSpan(
                                           children: [
                                             TextSpan(
@@ -423,6 +432,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                     color: FlutterFlowTheme.of(
                                                             context)
                                                         .primary,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                             ),
@@ -432,7 +442,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             )
                                           ],
                                           style: FlutterFlowTheme.of(context)
-                                              .bodyMedium,
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Outfit',
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
                                       );
                                     },
@@ -466,6 +480,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           }
                           List<CitiesRecord> containerCitiesRecordList =
                               snapshot.data!;
+
                           return InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -482,7 +497,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                   BoxShadow(
                                     blurRadius: 12.0,
                                     color: Color(0x33000000),
-                                    offset: Offset(0.0, 5.0),
+                                    offset: Offset(
+                                      0.0,
+                                      5.0,
+                                    ),
                                   )
                                 ],
                                 borderRadius: BorderRadius.circular(8.0),
@@ -542,6 +560,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                         ? imageCitiesRecordList
                                                             .first
                                                         : null;
+
                                                 return ClipRRect(
                                                   borderRadius:
                                                       BorderRadius.circular(
@@ -589,6 +608,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                 List<CitiesRecord>
                                                     columnCitiesRecordList =
                                                     snapshot.data!;
+
                                                 return Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -639,6 +659,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             .override(
                                               fontFamily: 'Outfit',
                                               fontSize: 20.0,
+                                              letterSpacing: 0.0,
                                               fontWeight: FontWeight.w500,
                                             ),
                                       ),
@@ -668,10 +689,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             );
                                           }
                                           int richTextCount = snapshot.data!;
+
                                           return RichText(
-                                            textScaleFactor:
-                                                MediaQuery.of(context)
-                                                    .textScaleFactor,
+                                            textScaler: MediaQuery.of(context)
+                                                .textScaler,
                                             text: TextSpan(
                                               children: [
                                                 TextSpan(
@@ -686,6 +707,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.w600,
                                                       ),
@@ -697,7 +719,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               ],
                                               style:
                                                   FlutterFlowTheme.of(context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                             ),
                                           );
                                         },
@@ -730,7 +756,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                               BoxShadow(
                                 blurRadius: 12.0,
                                 color: Color(0x33000000),
-                                offset: Offset(0.0, 5.0),
+                                offset: Offset(
+                                  0.0,
+                                  5.0,
+                                ),
                               )
                             ],
                             borderRadius: BorderRadius.circular(8.0),
@@ -770,6 +799,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       List<ItinerariesRecord>
                                           rowItinerariesRecordList =
                                           snapshot.data!;
+
                                       return Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: List.generate(
@@ -806,6 +836,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                         .override(
                                           fontFamily: 'Outfit',
                                           fontSize: 20.0,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
@@ -830,9 +861,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                       );
                                     }
                                     int richTextCount = snapshot.data!;
+
                                     return RichText(
-                                      textScaleFactor: MediaQuery.of(context)
-                                          .textScaleFactor,
+                                      textScaler:
+                                          MediaQuery.of(context).textScaler,
                                       text: TextSpan(
                                         children: [
                                           TextSpan(
@@ -844,6 +876,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .primary,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                           ),
@@ -853,7 +886,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           )
                                         ],
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              letterSpacing: 0.0,
+                                            ),
                                       ),
                                     );
                                   },
@@ -891,6 +928,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                           FlutterFlowTheme.of(context).titleSmall.override(
                                 fontFamily: 'Outfit',
                                 color: FlutterFlowTheme.of(context).black600,
+                                letterSpacing: 0.0,
                               ),
                       elevation: 3.0,
                       borderSide: BorderSide(

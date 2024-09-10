@@ -3,9 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'home_page_model.dart';
 export 'home_page_model.dart';
 
@@ -13,7 +11,7 @@ class HomePageWidget extends StatefulWidget {
   const HomePageWidget({super.key});
 
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  State<HomePageWidget> createState() => _HomePageWidgetState();
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
@@ -36,17 +34,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return StreamBuilder<List<EventsRecord>>(
       stream: queryEventsRecord(),
       builder: (context, snapshot) {
@@ -68,10 +55,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           );
         }
         List<EventsRecord> homePageEventsRecordList = snapshot.data!;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
@@ -127,7 +113,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: RichText(
-                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                        textScaler: MediaQuery.of(context).textScaler,
                         text: TextSpan(
                           children: [
                             TextSpan(
@@ -138,6 +124,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontFamily: 'Outfit',
                                     color: const Color(0xFFFF9900),
                                     fontSize: 24.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                             ),
@@ -159,6 +146,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     fontFamily: 'Outfit',
                                     color: const Color(0xFFFF9900),
                                     fontSize: 24.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w600,
                                   ),
                         ),
@@ -175,6 +163,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           FlutterFlowTheme.of(context).displayMedium.override(
                                 fontFamily: 'Outfit',
                                 color: const Color(0xFFFF9900),
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
                               ),
                     ),
@@ -214,6 +203,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
                                             .primaryText,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ),
@@ -224,6 +214,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 builder: (context) {
                                   final homePageVar =
                                       homePageEventsRecordList.toList();
+
                                   return ListView.separated(
                                     padding: EdgeInsets.zero,
                                     shrinkWrap: true,
@@ -293,6 +284,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryText,
+                                                          letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                 ),
@@ -314,6 +306,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .secondaryText,
+                                                          letterSpacing: 0.0,
                                                         ),
                                                   ),
                                                 ),

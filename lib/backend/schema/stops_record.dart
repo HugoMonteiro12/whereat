@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class StopsRecord extends FirestoreRecord {
   StopsRecord._(
@@ -55,8 +55,8 @@ class StopsRecord extends FirestoreRecord {
           ? parent.collection('stops')
           : FirebaseFirestore.instance.collectionGroup('stops');
 
-  static DocumentReference createDoc(DocumentReference parent) =>
-      parent.collection('stops').doc();
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('stops').doc(id);
 
   static Stream<StopsRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => StopsRecord.fromSnapshot(s));

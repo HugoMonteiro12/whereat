@@ -3,8 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/completed/profile/edit_profile_widget/edit_profile_widget_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 import 'edit_profile_model.dart';
 export 'edit_profile_model.dart';
 
@@ -12,7 +10,7 @@ class EditProfileWidget extends StatefulWidget {
   const EditProfileWidget({super.key});
 
   @override
-  _EditProfileWidgetState createState() => _EditProfileWidgetState();
+  State<EditProfileWidget> createState() => _EditProfileWidgetState();
 }
 
 class _EditProfileWidgetState extends State<EditProfileWidget> {
@@ -35,21 +33,8 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -99,7 +84,7 @@ class _EditProfileWidgetState extends State<EditProfileWidget> {
                               0.0, 50.0, 0.0, 0.0),
                           child: wrapWithModel(
                             model: _model.editProfileWidgetModel,
-                            updateCallback: () => setState(() {}),
+                            updateCallback: () => safeSetState(() {}),
                             child: EditProfileWidgetWidget(
                               title: 'Edit Profile',
                               confirmButtonText: 'Save Changes',

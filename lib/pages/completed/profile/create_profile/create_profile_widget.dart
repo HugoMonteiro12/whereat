@@ -2,9 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/completed/profile/edit_profile_widget/edit_profile_widget_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_profile_model.dart';
 export 'create_profile_model.dart';
 
@@ -12,7 +10,7 @@ class CreateProfileWidget extends StatefulWidget {
   const CreateProfileWidget({super.key});
 
   @override
-  _CreateProfileWidgetState createState() => _CreateProfileWidgetState();
+  State<CreateProfileWidget> createState() => _CreateProfileWidgetState();
 }
 
 class _CreateProfileWidgetState extends State<CreateProfileWidget> {
@@ -35,21 +33,8 @@ class _CreateProfileWidgetState extends State<CreateProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -73,7 +58,7 @@ class _CreateProfileWidgetState extends State<CreateProfileWidget> {
                     child: Align(
                       alignment: const AlignmentDirectional(0.0, -1.0),
                       child: RichText(
-                        textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                        textScaler: MediaQuery.of(context).textScaler,
                         text: TextSpan(
                           children: [
                             TextSpan(
@@ -84,6 +69,7 @@ class _CreateProfileWidgetState extends State<CreateProfileWidget> {
                                     fontFamily: 'Righteous',
                                     color: const Color(0xFFFF9900),
                                     fontSize: 61.0,
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
@@ -100,6 +86,7 @@ class _CreateProfileWidgetState extends State<CreateProfileWidget> {
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Righteous',
                                     color: const Color(0xFFFF9900),
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                         ),
@@ -137,7 +124,7 @@ class _CreateProfileWidgetState extends State<CreateProfileWidget> {
                             padding: const EdgeInsets.all(10.0),
                             child: wrapWithModel(
                               model: _model.editProfileWidgetModel,
-                              updateCallback: () => setState(() {}),
+                              updateCallback: () => safeSetState(() {}),
                               child: EditProfileWidgetWidget(
                                 title: 'Edit Profile',
                                 confirmButtonText: 'Save',

@@ -6,11 +6,8 @@ import 'package:flutter/material.dart';
 class CreateProfileModel extends FlutterFlowModel<CreateProfileWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // Model for editProfile_widget component.
   late EditProfileWidgetModel editProfileWidgetModel;
-
-  /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {
@@ -20,11 +17,6 @@ class CreateProfileModel extends FlutterFlowModel<CreateProfileWidget> {
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     editProfileWidgetModel.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

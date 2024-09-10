@@ -5,10 +5,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/completed/cityinfo/cityinfo_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'visited_cities_model.dart';
 export 'visited_cities_model.dart';
 
@@ -16,7 +14,7 @@ class VisitedCitiesWidget extends StatefulWidget {
   const VisitedCitiesWidget({super.key});
 
   @override
-  _VisitedCitiesWidgetState createState() => _VisitedCitiesWidgetState();
+  State<VisitedCitiesWidget> createState() => _VisitedCitiesWidgetState();
 }
 
 class _VisitedCitiesWidgetState extends State<VisitedCitiesWidget> {
@@ -39,21 +37,8 @@ class _VisitedCitiesWidgetState extends State<VisitedCitiesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -91,6 +76,7 @@ class _VisitedCitiesWidgetState extends State<VisitedCitiesWidget> {
                             FlutterFlowTheme.of(context).headlineSmall.override(
                                   fontFamily: 'Outfit',
                                   fontSize: 25.0,
+                                  letterSpacing: 0.0,
                                   fontWeight: FontWeight.bold,
                                 ),
                       ),
@@ -146,6 +132,7 @@ class _VisitedCitiesWidgetState extends State<VisitedCitiesWidget> {
                       }
                       List<CitiesRecord> staggeredViewCitiesRecordList =
                           snapshot.data!;
+
                       return MasonryGridView.builder(
                         gridDelegate:
                             const SliverSimpleGridDelegateWithFixedCrossAxisCount(
@@ -170,17 +157,15 @@ class _VisitedCitiesWidgetState extends State<VisitedCitiesWidget> {
                                   context: context,
                                   builder: (dialogContext) {
                                     return Dialog(
+                                      elevation: 0,
                                       insetPadding: EdgeInsets.zero,
                                       backgroundColor: Colors.transparent,
                                       alignment: const AlignmentDirectional(0.0, 0.0)
                                           .resolve(Directionality.of(context)),
                                       child: GestureDetector(
-                                        onTap: () => _model
-                                                .unfocusNode.canRequestFocus
-                                            ? FocusScope.of(context)
-                                                .requestFocus(
-                                                    _model.unfocusNode)
-                                            : FocusScope.of(context).unfocus(),
+                                        onTap: () =>
+                                            FocusScope.of(dialogContext)
+                                                .unfocus(),
                                         child: CityinfoWidget(
                                           city: staggeredViewCitiesRecord
                                               .reference,
@@ -188,7 +173,7 @@ class _VisitedCitiesWidgetState extends State<VisitedCitiesWidget> {
                                       ),
                                     );
                                   },
-                                ).then((value) => setState(() {}));
+                                );
                               },
                               child: Container(
                                 width: 100.0,
@@ -200,7 +185,10 @@ class _VisitedCitiesWidgetState extends State<VisitedCitiesWidget> {
                                     BoxShadow(
                                       blurRadius: 4.0,
                                       color: Color(0x33000000),
-                                      offset: Offset(0.0, 2.0),
+                                      offset: Offset(
+                                        0.0,
+                                        2.0,
+                                      ),
                                     )
                                   ],
                                   borderRadius: BorderRadius.circular(8.0),
@@ -231,14 +219,15 @@ class _VisitedCitiesWidgetState extends State<VisitedCitiesWidget> {
                                               const AlignmentDirectional(0.0, 0.0),
                                           child: AutoSizeText(
                                             staggeredViewCitiesRecord.city,
+                                            minFontSize: 20.0,
                                             style: FlutterFlowTheme.of(context)
                                                 .headlineMedium
                                                 .override(
                                                   fontFamily: 'Outfit',
                                                   fontSize: 22.0,
+                                                  letterSpacing: 0.0,
                                                   fontWeight: FontWeight.bold,
                                                 ),
-                                            minFontSize: 20.0,
                                           ),
                                         ),
                                       ),

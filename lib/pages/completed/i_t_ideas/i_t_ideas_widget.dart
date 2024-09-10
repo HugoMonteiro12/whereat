@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:text_search/text_search.dart';
@@ -17,7 +16,7 @@ class ITIdeasWidget extends StatefulWidget {
   const ITIdeasWidget({super.key});
 
   @override
-  _ITIdeasWidgetState createState() => _ITIdeasWidgetState();
+  State<ITIdeasWidget> createState() => _ITIdeasWidgetState();
 }
 
 class _ITIdeasWidgetState extends State<ITIdeasWidget> {
@@ -32,9 +31,8 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().SearchActive = false;
-      });
+      FFAppState().SearchActive = false;
+      safeSetState(() {});
     });
 
     _model.textController ??= TextEditingController();
@@ -49,15 +47,6 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return StreamBuilder<List<ItinerariesRecord>>(
@@ -81,10 +70,9 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
           );
         }
         List<ItinerariesRecord> iTIdeasItinerariesRecordList = snapshot.data!;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
@@ -161,8 +149,7 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                         textController: _model.textController!,
                                         options: options.toList(),
                                         onSelected: onSelected,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                        textStyle: const TextStyle(),
                                         textHighlightStyle: const TextStyle(),
                                         elevation: 4.0,
                                         optionBackgroundColor:
@@ -175,7 +162,7 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                       );
                                     },
                                     onSelected: (String selection) {
-                                      setState(() => _model
+                                      safeSetState(() => _model
                                           .textFieldSelectedOption = selection);
                                       FocusScope.of(context).unfocus();
                                     },
@@ -210,7 +197,8 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                                   .fromTerms(
                                                                       record, [
                                                             record.city,
-                                                            record.country]),
+                                                            record.country
+                                                          ]),
                                                         )
                                                         .toList(),
                                                   )
@@ -223,13 +211,13 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                 .onError((_, __) => _model
                                                     .simpleSearchResults = [])
                                                 .whenComplete(
-                                                    () => setState(() {}));
+                                                    () => safeSetState(() {}));
 
-                                            setState(() {
-                                              FFAppState().SearchActive = true;
-                                            });
+                                            FFAppState().SearchActive = true;
+                                            safeSetState(() {});
                                           },
                                         ),
+                                        autofocus: false,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelText: 'Search itineraries...',
@@ -241,59 +229,66 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                           prefixIcon: const Icon(
                                             Icons.search,
                                           ),
-                                          suffixIcon: _model.textController!
-                                                  .text.isNotEmpty
-                                              ? InkWell(
-                                                  onTap: () async {
-                                                    _model.textController
-                                                        ?.clear();
-                                                    await queryItinerariesRecordOnce()
-                                                        .then(
-                                                          (records) => _model
-                                                                  .simpleSearchResults =
-                                                              TextSearch(
-                                                            records
-                                                                .map(
-                                                                  (record) => TextSearchItem
-                                                                      .fromTerms(
-                                                                          record,
-                                                                          [
-                                                                        record
-                                                                            .city,
-                                                                        record
-                                                                            .country]),
-                                                                )
-                                                                .toList(),
-                                                          )
-                                                                  .search(_model
-                                                                      .textController
-                                                                      .text)
-                                                                  .map((r) =>
-                                                                      r.object)
-                                                                  .toList(),
-                                                        )
-                                                        .onError((_, __) =>
-                                                            _model.simpleSearchResults =
-                                                                [])
-                                                        .whenComplete(() =>
-                                                            setState(() {}));
+                                          suffixIcon:
+                                              _model.textController!.text
+                                                      .isNotEmpty
+                                                  ? InkWell(
+                                                      onTap: () async {
+                                                        _model.textController
+                                                            ?.clear();
+                                                        await queryItinerariesRecordOnce()
+                                                            .then(
+                                                              (records) => _model
+                                                                      .simpleSearchResults =
+                                                                  TextSearch(
+                                                                records
+                                                                    .map(
+                                                                      (record) =>
+                                                                          TextSearchItem.fromTerms(
+                                                                              record,
+                                                                              [
+                                                                            record.city,
+                                                                            record.country
+                                                                          ]),
+                                                                    )
+                                                                    .toList(),
+                                                              )
+                                                                      .search(_model
+                                                                          .textController
+                                                                          .text)
+                                                                      .map((r) =>
+                                                                          r.object)
+                                                                      .toList(),
+                                                            )
+                                                            .onError((_, __) =>
+                                                                _model.simpleSearchResults =
+                                                                    [])
+                                                            .whenComplete(() =>
+                                                                safeSetState(
+                                                                    () {}));
 
-                                                    setState(() {
-                                                      FFAppState()
-                                                          .SearchActive = true;
-                                                    });
-                                                    setState(() {});
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.clear,
-                                                    color: Color(0xFFFF9900),
-                                                    size: 22.0,
-                                                  ),
-                                                )
-                                              : null,
+                                                        FFAppState()
+                                                                .SearchActive =
+                                                            true;
+                                                        safeSetState(() {});
+                                                        safeSetState(() {});
+                                                      },
+                                                      child: const Icon(
+                                                        Icons.clear,
+                                                        color:
+                                                            Color(0xFFFF9900),
+                                                        size: 22.0,
+                                                      ),
+                                                    )
+                                                  : null,
                                         ),
                                         style: FlutterFlowTheme.of(context)
-                                            .bodyMedium,
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              letterSpacing: 0.0,
+                                            ),
+                                        cursorColor: const Color(0xFFFF9900),
                                         validator: _model
                                             .textControllerValidator
                                             .asValidator(context),
@@ -324,6 +319,7 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                     .override(
                                       fontFamily: 'Outfit',
                                       fontSize: 25.0,
+                                      letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                               ),
@@ -362,6 +358,7 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                           builder: (context) {
                             final itineraries =
                                 iTIdeasItinerariesRecordList.toList();
+
                             return ListView.separated(
                               padding: EdgeInsets.zero,
                               primary: false,
@@ -432,34 +429,34 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                         .bodyLarge
                                                         .override(
                                                           fontFamily: 'Outfit',
+                                                          letterSpacing: 0.0,
                                                           fontWeight:
                                                               FontWeight.w600,
                                                         ),
                                               ),
                                               RichText(
-                                                textScaleFactor:
+                                                textScaler:
                                                     MediaQuery.of(context)
-                                                        .textScaleFactor,
+                                                        .textScaler,
                                                 text: TextSpan(
                                                   children: [
                                                     TextSpan(
                                                       text: itinerariesItem
                                                           .durationdays
                                                           .toString(),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Outfit',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                     ),
                                                     const TextSpan(
                                                       text: ' days',
@@ -468,7 +465,11 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                   ],
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
                                               ),
                                             ],
@@ -488,7 +489,11 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                   itinerariesItem.slogan,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
                                               ),
                                               Padding(
@@ -500,7 +505,11 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                       .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
                                               ),
                                               Icon(
@@ -530,6 +539,7 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                           builder: (context) {
                             final itineraries =
                                 _model.simpleSearchResults.toList();
+
                             return ListView.separated(
                               padding: EdgeInsets.zero,
                               primary: false,
@@ -597,32 +607,35 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                 itinerariesItem.title,
                                                 style:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyLarge,
+                                                        .bodyLarge
+                                                        .override(
+                                                          fontFamily: 'Outfit',
+                                                          letterSpacing: 0.0,
+                                                        ),
                                               ),
                                               RichText(
-                                                textScaleFactor:
+                                                textScaler:
                                                     MediaQuery.of(context)
-                                                        .textScaleFactor,
+                                                        .textScaler,
                                                 text: TextSpan(
                                                   children: [
                                                     TextSpan(
                                                       text: itinerariesItem
                                                           .durationdays
                                                           .toString(),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Outfit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                              ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily:
+                                                                'Outfit',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                     ),
                                                     const TextSpan(
                                                       text: ' days',
@@ -631,7 +644,11 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                   ],
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyMedium,
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
                                               ),
                                             ],
@@ -651,7 +668,11 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                   itinerariesItem.slogan,
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
                                               ),
                                               Padding(
@@ -663,7 +684,11 @@ class _ITIdeasWidgetState extends State<ITIdeasWidget> {
                                                       .toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .labelMedium,
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Outfit',
+                                                        letterSpacing: 0.0,
+                                                      ),
                                                 ),
                                               ),
                                               Icon(

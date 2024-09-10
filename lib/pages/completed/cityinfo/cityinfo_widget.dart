@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'cityinfo_model.dart';
 export 'cityinfo_model.dart';
 
@@ -16,7 +15,7 @@ class CityinfoWidget extends StatefulWidget {
   final DocumentReference? city;
 
   @override
-  _CityinfoWidgetState createState() => _CityinfoWidgetState();
+  State<CityinfoWidget> createState() => _CityinfoWidgetState();
 }
 
 class _CityinfoWidgetState extends State<CityinfoWidget> {
@@ -43,8 +42,6 @@ class _CityinfoWidgetState extends State<CityinfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Align(
       alignment: const AlignmentDirectional(0.0, 0.0),
       child: StreamBuilder<CitiesRecord>(
@@ -64,7 +61,9 @@ class _CityinfoWidgetState extends State<CityinfoWidget> {
               ),
             );
           }
+
           final profileCardCitiesRecord = snapshot.data!;
+
           return Container(
             width: double.infinity,
             constraints: const BoxConstraints(
@@ -76,7 +75,10 @@ class _CityinfoWidgetState extends State<CityinfoWidget> {
                 BoxShadow(
                   blurRadius: 12.0,
                   color: Color(0x33000000),
-                  offset: Offset(0.0, 5.0),
+                  offset: Offset(
+                    0.0,
+                    5.0,
+                  ),
                 )
               ],
               borderRadius: BorderRadius.circular(16.0),
@@ -104,8 +106,12 @@ class _CityinfoWidgetState extends State<CityinfoWidget> {
                                   profileCardCitiesRecord.city,
                                   'City',
                                 ),
-                                style:
-                                    FlutterFlowTheme.of(context).headlineLarge,
+                                style: FlutterFlowTheme.of(context)
+                                    .headlineLarge
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      letterSpacing: 0.0,
+                                    ),
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
@@ -115,8 +121,12 @@ class _CityinfoWidgetState extends State<CityinfoWidget> {
                                     profileCardCitiesRecord.country,
                                     'Country',
                                   ),
-                                  style:
-                                      FlutterFlowTheme.of(context).labelMedium,
+                                  style: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Outfit',
+                                        letterSpacing: 0.0,
+                                      ),
                                 ),
                               ),
                             ],
@@ -158,7 +168,10 @@ class _CityinfoWidgetState extends State<CityinfoWidget> {
                         profileCardCitiesRecord.description,
                         'Description',
                       ),
-                      style: FlutterFlowTheme.of(context).labelLarge,
+                      style: FlutterFlowTheme.of(context).labelLarge.override(
+                            fontFamily: 'Outfit',
+                            letterSpacing: 0.0,
+                          ),
                     ),
                   ),
                 ],

@@ -22,3 +22,11 @@ export '/pages/completed/visited_cities/visited_cities_widget.dart'
     show VisitedCitiesWidget;
 export '/pages/completed/saveditineraries/saveditineraries_widget.dart'
     show SaveditinerariesWidget;
+export '/chat_groupwbubbles/chat_2_details/chat2_details_widget.dart'
+    show Chat2DetailsWidget;
+export '/chat_groupwbubbles/chat_main/chat_main_widget.dart'
+    show ChatMainWidget;
+export '/chat_groupwbubbles/chat_2_invite_users/chat2_invite_users_widget.dart'
+    show Chat2InviteUsersWidget;
+export '/chat_groupwbubbles/image_details/image_details_widget.dart'
+    show ImageDetailsWidget;

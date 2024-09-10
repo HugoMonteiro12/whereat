@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 class DetailedItineraryModel extends FlutterFlowModel<DetailedItineraryWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   // State field(s) for PageView widget.
   PageController? pageViewController;
 
@@ -15,17 +14,9 @@ class DetailedItineraryModel extends FlutterFlowModel<DetailedItineraryWidget> {
       ? pageViewController!.page!.round()
       : 0;
 
-  /// Initialization and disposal methods.
-
   @override
   void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    unfocusNode.dispose();
-  }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
+  void dispose() {}
 }

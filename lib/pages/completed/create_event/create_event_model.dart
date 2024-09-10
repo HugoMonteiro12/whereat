@@ -7,62 +7,54 @@ import 'package:flutter/material.dart';
 class CreateEventModel extends FlutterFlowModel<CreateEventWidget> {
   ///  State fields for stateful widgets in this page.
 
-  final unfocusNode = FocusNode();
   final formKey = GlobalKey<FormState>();
   // State field(s) for yourName widget.
   FocusNode? yourNameFocusNode1;
-  TextEditingController? yourNameController1;
-  String? Function(BuildContext, String?)? yourNameController1Validator;
+  TextEditingController? yourNameTextController1;
+  String? Function(BuildContext, String?)? yourNameTextController1Validator;
   // State field(s) for loc widget.
   FocusNode? locFocusNode;
-  TextEditingController? locController;
-  String? Function(BuildContext, String?)? locControllerValidator;
+  TextEditingController? locTextController;
+  String? Function(BuildContext, String?)? locTextControllerValidator;
   // State field(s) for Address widget.
   FocusNode? addressFocusNode;
-  TextEditingController? addressController;
-  String? Function(BuildContext, String?)? addressControllerValidator;
+  TextEditingController? addressTextController;
+  String? Function(BuildContext, String?)? addressTextControllerValidator;
   // State field(s) for yourName widget.
   FocusNode? yourNameFocusNode2;
-  TextEditingController? yourNameController2;
-  String? Function(BuildContext, String?)? yourNameController2Validator;
+  TextEditingController? yourNameTextController2;
+  String? Function(BuildContext, String?)? yourNameTextController2Validator;
   DateTime? datePicked;
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
   // State field(s) for myBio widget.
   FocusNode? myBioFocusNode;
-  TextEditingController? myBioController;
-  String? Function(BuildContext, String?)? myBioControllerValidator;
+  TextEditingController? myBioTextController;
+  String? Function(BuildContext, String?)? myBioTextControllerValidator;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl = '';
-
-  /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {}
 
   @override
   void dispose() {
-    unfocusNode.dispose();
     yourNameFocusNode1?.dispose();
-    yourNameController1?.dispose();
+    yourNameTextController1?.dispose();
 
     locFocusNode?.dispose();
-    locController?.dispose();
+    locTextController?.dispose();
 
     addressFocusNode?.dispose();
-    addressController?.dispose();
+    addressTextController?.dispose();
 
     yourNameFocusNode2?.dispose();
-    yourNameController2?.dispose();
+    yourNameTextController2?.dispose();
 
     myBioFocusNode?.dispose();
-    myBioController?.dispose();
+    myBioTextController?.dispose();
   }
-
-  /// Action blocks are added here.
-
-  /// Additional helper methods are added here.
 }

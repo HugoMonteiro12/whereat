@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
 
 import 'index.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class UsersRecord extends FirestoreRecord {
   UsersRecord._(
@@ -65,6 +65,16 @@ class UsersRecord extends FirestoreRecord {
   bool get admin => _admin ?? false;
   bool hasAdmin() => _admin != null;
 
+  // "role" field.
+  String? _role;
+  String get role => _role ?? '';
+  bool hasRole() => _role != null;
+
+  // "title" field.
+  String? _title;
+  String get title => _title ?? '';
+  bool hasTitle() => _title != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -76,6 +86,8 @@ class UsersRecord extends FirestoreRecord {
     _lastActiveTime = snapshotData['last_active_time'] as DateTime?;
     _profileHeader = snapshotData['profile_header'] as String?;
     _admin = snapshotData['admin'] as bool?;
+    _role = snapshotData['role'] as String?;
+    _title = snapshotData['title'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -122,6 +134,8 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? lastActiveTime,
   String? profileHeader,
   bool? admin,
+  String? role,
+  String? title,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -135,6 +149,8 @@ Map<String, dynamic> createUsersRecordData({
       'last_active_time': lastActiveTime,
       'profile_header': profileHeader,
       'admin': admin,
+      'role': role,
+      'title': title,
     }.withoutNulls,
   );
 
@@ -155,7 +171,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.shortDescription == e2?.shortDescription &&
         e1?.lastActiveTime == e2?.lastActiveTime &&
         e1?.profileHeader == e2?.profileHeader &&
-        e1?.admin == e2?.admin;
+        e1?.admin == e2?.admin &&
+        e1?.role == e2?.role &&
+        e1?.title == e2?.title;
   }
 
   @override
@@ -169,7 +187,9 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.shortDescription,
         e?.lastActiveTime,
         e?.profileHeader,
-        e?.admin
+        e?.admin,
+        e?.role,
+        e?.title
       ]);
 
   @override

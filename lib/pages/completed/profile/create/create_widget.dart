@@ -4,11 +4,9 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_model.dart';
 export 'create_model.dart';
 
@@ -16,7 +14,7 @@ class CreateWidget extends StatefulWidget {
   const CreateWidget({super.key});
 
   @override
-  _CreateWidgetState createState() => _CreateWidgetState();
+  State<CreateWidget> createState() => _CreateWidgetState();
 }
 
 class _CreateWidgetState extends State<CreateWidget>
@@ -25,53 +23,55 @@ class _CreateWidgetState extends State<CreateWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'containerOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 1.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: const Offset(0.0, -140.0),
-          end: const Offset(0.0, 0.0),
-        ),
-        ScaleEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: const Offset(0.9, 0.9),
-          end: const Offset(1.0, 1.0),
-        ),
-        TiltEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 300.ms,
-          begin: const Offset(0.349, 0),
-          end: const Offset(0, 0),
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => CreateModel());
 
-    _model.emailAddressController ??= TextEditingController();
+    _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
 
-    _model.passwordController ??= TextEditingController();
+    _model.passwordTextController ??= TextEditingController();
     _model.passwordFocusNode ??= FocusNode();
+
+    animationsMap.addAll({
+      'containerOnPageLoadAnimation': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 1.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: const Offset(0.0, -140.0),
+            end: const Offset(0.0, 0.0),
+          ),
+          ScaleEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: const Offset(0.9, 0.9),
+            end: const Offset(1.0, 1.0),
+          ),
+          TiltEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 300.0.ms,
+            begin: const Offset(0.349, 0),
+            end: const Offset(0, 0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -83,21 +83,8 @@ class _CreateWidgetState extends State<CreateWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -126,8 +113,7 @@ class _CreateWidgetState extends State<CreateWidget>
                         child: Align(
                           alignment: const AlignmentDirectional(0.0, -1.0),
                           child: RichText(
-                            textScaleFactor:
-                                MediaQuery.of(context).textScaleFactor,
+                            textScaler: MediaQuery.of(context).textScaler,
                             text: TextSpan(
                               children: [
                                 TextSpan(
@@ -138,6 +124,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                         fontFamily: 'Righteous',
                                         color: const Color(0xFFFF9900),
                                         fontSize: 61.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                       ),
                                 ),
@@ -155,6 +142,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                   .override(
                                     fontFamily: 'Righteous',
                                     color: const Color(0xFFFF9900),
+                                    letterSpacing: 0.0,
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
@@ -177,7 +165,10 @@ class _CreateWidgetState extends State<CreateWidget>
                             BoxShadow(
                               blurRadius: 4.0,
                               color: Color(0x33000000),
-                              offset: Offset(0.0, 2.0),
+                              offset: Offset(
+                                0.0,
+                                2.0,
+                              ),
                             )
                           ],
                           borderRadius: BorderRadius.circular(12.0),
@@ -197,6 +188,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                       .displayMedium
                                       .override(
                                         fontFamily: 'Outfit',
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w500,
                                       ),
                                 ),
@@ -206,8 +198,12 @@ class _CreateWidgetState extends State<CreateWidget>
                                   child: Text(
                                     'Create an account.',
                                     textAlign: TextAlign.start,
-                                    style:
-                                        FlutterFlowTheme.of(context).labelLarge,
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .override(
+                                          fontFamily: 'Outfit',
+                                          letterSpacing: 0.0,
+                                        ),
                                   ),
                                 ),
                                 Padding(
@@ -216,7 +212,8 @@ class _CreateWidgetState extends State<CreateWidget>
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
-                                      controller: _model.emailAddressController,
+                                      controller:
+                                          _model.emailAddressTextController,
                                       focusNode: _model.emailAddressFocusNode,
                                       autofocus: true,
                                       autofillHints: const [AutofillHints.email],
@@ -224,7 +221,11 @@ class _CreateWidgetState extends State<CreateWidget>
                                       decoration: InputDecoration(
                                         labelText: 'Email',
                                         labelStyle: FlutterFlowTheme.of(context)
-                                            .labelLarge,
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              letterSpacing: 0.0,
+                                            ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
@@ -266,12 +267,16 @@ class _CreateWidgetState extends State<CreateWidget>
                                             .primaryBackground,
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyLarge,
+                                          .bodyLarge
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            letterSpacing: 0.0,
+                                          ),
                                       keyboardType: TextInputType.emailAddress,
                                       cursorColor:
                                           FlutterFlowTheme.of(context).primary,
                                       validator: _model
-                                          .emailAddressControllerValidator
+                                          .emailAddressTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -282,7 +287,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                   child: SizedBox(
                                     width: double.infinity,
                                     child: TextFormField(
-                                      controller: _model.passwordController,
+                                      controller: _model.passwordTextController,
                                       focusNode: _model.passwordFocusNode,
                                       autofocus: true,
                                       autofillHints: const [AutofillHints.password],
@@ -290,7 +295,11 @@ class _CreateWidgetState extends State<CreateWidget>
                                       decoration: InputDecoration(
                                         labelText: 'Password',
                                         labelStyle: FlutterFlowTheme.of(context)
-                                            .labelLarge,
+                                            .labelLarge
+                                            .override(
+                                              fontFamily: 'Outfit',
+                                              letterSpacing: 0.0,
+                                            ),
                                         enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
                                             color: FlutterFlowTheme.of(context)
@@ -331,7 +340,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                         fillColor: FlutterFlowTheme.of(context)
                                             .primaryBackground,
                                         suffixIcon: InkWell(
-                                          onTap: () => setState(
+                                          onTap: () => safeSetState(
                                             () => _model.passwordVisibility =
                                                 !_model.passwordVisibility,
                                           ),
@@ -348,11 +357,15 @@ class _CreateWidgetState extends State<CreateWidget>
                                         ),
                                       ),
                                       style: FlutterFlowTheme.of(context)
-                                          .bodyLarge,
+                                          .bodyLarge
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            letterSpacing: 0.0,
+                                          ),
                                       cursorColor:
                                           FlutterFlowTheme.of(context).primary,
                                       validator: _model
-                                          .passwordControllerValidator
+                                          .passwordTextControllerValidator
                                           .asValidator(context),
                                     ),
                                   ),
@@ -367,8 +380,8 @@ class _CreateWidgetState extends State<CreateWidget>
                                       final user = await authManager
                                           .createAccountWithEmail(
                                         context,
-                                        _model.emailAddressController.text,
-                                        _model.passwordController.text,
+                                        _model.emailAddressTextController.text,
+                                        _model.passwordTextController.text,
                                       );
                                       if (user == null) {
                                         return;
@@ -392,6 +405,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                           .override(
                                             fontFamily: 'Outfit',
                                             color: Colors.white,
+                                            letterSpacing: 0.0,
                                           ),
                                       elevation: 3.0,
                                       borderSide: const BorderSide(
@@ -429,8 +443,8 @@ class _CreateWidgetState extends State<CreateWidget>
                                         );
                                       },
                                       child: RichText(
-                                        textScaleFactor: MediaQuery.of(context)
-                                            .textScaleFactor,
+                                        textScaler:
+                                            MediaQuery.of(context).textScaler,
                                         text: TextSpan(
                                           children: [
                                             const TextSpan(
@@ -446,6 +460,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                                     fontFamily: 'Outfit',
                                                     color: const Color(0xFF8CB4D5),
                                                     fontSize: 16.0,
+                                                    letterSpacing: 0.0,
                                                     fontWeight: FontWeight.w600,
                                                   ),
                                             )
@@ -455,6 +470,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                               .override(
                                                 fontFamily: 'Outfit',
                                                 fontSize: 16.0,
+                                                letterSpacing: 0.0,
                                               ),
                                         ),
                                       ),
@@ -470,7 +486,11 @@ class _CreateWidgetState extends State<CreateWidget>
                                       'Or sign up with',
                                       textAlign: TextAlign.center,
                                       style: FlutterFlowTheme.of(context)
-                                          .labelLarge,
+                                          .labelLarge
+                                          .override(
+                                            fontFamily: 'Outfit',
+                                            letterSpacing: 0.0,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -510,6 +530,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                             fontFamily: 'Outfit',
                                             color: FlutterFlowTheme.of(context)
                                                 .primaryText,
+                                            letterSpacing: 0.0,
                                           ),
                                       elevation: 0.0,
                                       borderSide: BorderSide(
@@ -566,6 +587,7 @@ class _CreateWidgetState extends State<CreateWidget>
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primaryText,
+                                                      letterSpacing: 0.0,
                                                     ),
                                             elevation: 0.0,
                                             borderSide: BorderSide(

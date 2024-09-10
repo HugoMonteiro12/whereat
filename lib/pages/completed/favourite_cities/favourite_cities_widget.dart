@@ -5,10 +5,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/pages/completed/cityinfo/cityinfo_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'favourite_cities_model.dart';
 export 'favourite_cities_model.dart';
 
@@ -16,7 +14,7 @@ class FavouriteCitiesWidget extends StatefulWidget {
   const FavouriteCitiesWidget({super.key});
 
   @override
-  _FavouriteCitiesWidgetState createState() => _FavouriteCitiesWidgetState();
+  State<FavouriteCitiesWidget> createState() => _FavouriteCitiesWidgetState();
 }
 
 class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
@@ -39,21 +37,8 @@ class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return GestureDetector(
-      onTap: () => _model.unfocusNode.canRequestFocus
-          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-          : FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -94,6 +79,7 @@ class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
                               .override(
                                 fontFamily: 'Outfit',
                                 fontSize: 25.0,
+                                letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),
@@ -151,6 +137,7 @@ class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
                         }
                         List<CitiesRecord> staggeredViewCitiesRecordList =
                             snapshot.data!;
+
                         return MasonryGridView.builder(
                           gridDelegate:
                               const SliverSimpleGridDelegateWithFixedCrossAxisCount(
@@ -175,6 +162,7 @@ class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
                                     context: context,
                                     builder: (dialogContext) {
                                       return Dialog(
+                                        elevation: 0,
                                         insetPadding: EdgeInsets.zero,
                                         backgroundColor: Colors.transparent,
                                         alignment:
@@ -182,12 +170,8 @@ class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
                                                 .resolve(
                                                     Directionality.of(context)),
                                         child: GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
+                                          onTap: () =>
+                                              FocusScope.of(dialogContext)
                                                   .unfocus(),
                                           child: CityinfoWidget(
                                             city: staggeredViewCitiesRecord
@@ -196,7 +180,7 @@ class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
                                         ),
                                       );
                                     },
-                                  ).then((value) => setState(() {}));
+                                  );
                                 },
                                 child: Container(
                                   width: 100.0,
@@ -208,7 +192,10 @@ class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
                                       BoxShadow(
                                         blurRadius: 4.0,
                                         color: Color(0x33000000),
-                                        offset: Offset(0.0, 2.0),
+                                        offset: Offset(
+                                          0.0,
+                                          2.0,
+                                        ),
                                       )
                                     ],
                                     borderRadius: BorderRadius.circular(8.0),
@@ -245,16 +232,17 @@ class _FavouriteCitiesWidgetState extends State<FavouriteCitiesWidget> {
                                                 const AlignmentDirectional(0.0, 0.0),
                                             child: AutoSizeText(
                                               staggeredViewCitiesRecord.city,
+                                              minFontSize: 20.0,
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .headlineMedium
                                                       .override(
                                                         fontFamily: 'Outfit',
                                                         fontSize: 22.0,
+                                                        letterSpacing: 0.0,
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
-                                              minFontSize: 20.0,
                                             ),
                                           ),
                                         ),

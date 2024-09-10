@@ -6,10 +6,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart'
     as smooth_page_indicator;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'itinerary_model.dart';
 export 'itinerary_model.dart';
 
@@ -22,7 +20,7 @@ class ItineraryWidget extends StatefulWidget {
   final DocumentReference? itinerary;
 
   @override
-  _ItineraryWidgetState createState() => _ItineraryWidgetState();
+  State<ItineraryWidget> createState() => _ItineraryWidgetState();
 }
 
 class _ItineraryWidgetState extends State<ItineraryWidget>
@@ -31,71 +29,73 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  final animationsMap = {
-    'textOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: const Offset(-10.0, 0.0),
-          end: const Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: const Offset(-20.0, 0.0),
-          end: const Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'textOnPageLoadAnimation3': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        VisibilityEffect(duration: 50.ms),
-        FadeEffect(
-          curve: Curves.easeInOut,
-          delay: 50.ms,
-          duration: 600.ms,
-          begin: 0.0,
-          end: 1.0,
-        ),
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 50.ms,
-          duration: 600.ms,
-          begin: const Offset(-20.0, 0.0),
-          end: const Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
+  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => ItineraryModel());
+
+    animationsMap.addAll({
+      'textOnPageLoadAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: const Offset(-10.0, 0.0),
+            end: const Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation2': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: const Offset(-20.0, 0.0),
+            end: const Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+      'textOnPageLoadAnimation3': AnimationInfo(
+        trigger: AnimationTrigger.onPageLoad,
+        effectsBuilder: () => [
+          VisibilityEffect(duration: 50.ms),
+          FadeEffect(
+            curve: Curves.easeInOut,
+            delay: 50.0.ms,
+            duration: 600.0.ms,
+            begin: 0.0,
+            end: 1.0,
+          ),
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 50.0.ms,
+            duration: 600.0.ms,
+            begin: const Offset(-20.0, 0.0),
+            end: const Offset(0.0, 0.0),
+          ),
+        ],
+      ),
+    });
   }
 
   @override
@@ -107,17 +107,6 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return StreamBuilder<List<ItinerariesRecord>>(
       stream: queryItinerariesRecord(
         queryBuilder: (itinerariesRecord) => itinerariesRecord.where(
@@ -152,10 +141,9 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
             itineraryItinerariesRecordList.isNotEmpty
                 ? itineraryItinerariesRecordList.first
                 : null;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             appBar: AppBar(
@@ -204,7 +192,12 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                 tag: itineraryItinerariesRecord!.image,
                                 transitionOnUserGestures: true,
                                 child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8.0),
+                                  borderRadius: const BorderRadius.only(
+                                    bottomLeft: Radius.circular(8.0),
+                                    bottomRight: Radius.circular(8.0),
+                                    topLeft: Radius.circular(0.0),
+                                    topRight: Radius.circular(0.0),
+                                  ),
                                   child: Image.network(
                                     itineraryItinerariesRecord.image,
                                     width: 400.0,
@@ -233,6 +226,7 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                       .headlineMedium
                                       .override(
                                         fontFamily: 'Outfit',
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.w600,
                                       ),
                                 ).animateOnPageLoad(
@@ -240,12 +234,12 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                               ),
                             ),
                             RichText(
-                              textScaleFactor:
-                                  MediaQuery.of(context).textScaleFactor,
+                              textScaler: MediaQuery.of(context).textScaler,
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: itineraryItinerariesRecord.durationdays
+                                    text: itineraryItinerariesRecord
+                                        .durationdays
                                         .toString(),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -253,6 +247,7 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                           fontFamily: 'Outfit',
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
+                                          letterSpacing: 0.0,
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
@@ -261,7 +256,12 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                     style: TextStyle(),
                                   )
                                 ],
-                                style: FlutterFlowTheme.of(context).bodyMedium,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Outfit',
+                                      letterSpacing: 0.0,
+                                    ),
                               ),
                             ),
                             Align(
@@ -280,6 +280,7 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                         fontFamily: 'Outfit',
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
+                                        letterSpacing: 0.0,
                                       ),
                                 ).animateOnPageLoad(
                                     animationsMap['textOnPageLoadAnimation2']!),
@@ -301,6 +302,7 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                       .override(
                                         fontFamily: 'Outfit',
                                         fontSize: 14.0,
+                                        letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
                                       ),
                                 ).animateOnPageLoad(
@@ -328,7 +330,8 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                         controller:
                                             _model.pageViewController ??=
                                                 PageController(initialPage: 0),
-                                        onPageChanged: (_) => setState(() {}),
+                                        onPageChanged: (_) =>
+                                            safeSetState(() {}),
                                         scrollDirection: Axis.horizontal,
                                         children: [
                                           Padding(
@@ -359,7 +362,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyMedium,
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
                                                     ),
                                                   ),
@@ -380,7 +389,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleLarge,
+                                                                .titleLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
                                                     ),
                                                   ),
@@ -410,10 +425,10 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                               'DetailedItinerary');
                                                         },
                                                         child: RichText(
-                                                          textScaleFactor:
+                                                          textScaler:
                                                               MediaQuery.of(
                                                                       context)
-                                                                  .textScaleFactor,
+                                                                  .textScaler,
                                                           text: TextSpan(
                                                             children: [
                                                               TextSpan(
@@ -425,6 +440,8 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                                     .override(
                                                                       fontFamily:
                                                                           'Outfit',
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
@@ -436,7 +453,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                             ],
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .headlineMedium,
+                                                                .headlineMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                           ),
                                                           textAlign:
                                                               TextAlign.end,
@@ -476,7 +499,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyMedium,
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
                                                     ),
                                                   ),
@@ -497,7 +526,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleLarge,
+                                                                .titleLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
                                                     ),
                                                   ),
@@ -527,10 +562,10 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                               'DetailedItinerary');
                                                         },
                                                         child: RichText(
-                                                          textScaleFactor:
+                                                          textScaler:
                                                               MediaQuery.of(
                                                                       context)
-                                                                  .textScaleFactor,
+                                                                  .textScaler,
                                                           text: TextSpan(
                                                             children: [
                                                               TextSpan(
@@ -542,6 +577,8 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                                     .override(
                                                                       fontFamily:
                                                                           'Outfit',
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
@@ -553,7 +590,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                             ],
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .headlineMedium,
+                                                                .headlineMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                           ),
                                                           textAlign:
                                                               TextAlign.end,
@@ -593,7 +636,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .bodyMedium,
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
                                                     ),
                                                   ),
@@ -614,7 +663,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                         style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .titleLarge,
+                                                                .titleLarge
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
                                                     ),
                                                   ),
@@ -644,10 +699,10 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                               'DetailedItinerary');
                                                         },
                                                         child: RichText(
-                                                          textScaleFactor:
+                                                          textScaler:
                                                               MediaQuery.of(
                                                                       context)
-                                                                  .textScaleFactor,
+                                                                  .textScaler,
                                                           text: TextSpan(
                                                             children: [
                                                               TextSpan(
@@ -659,6 +714,8 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                                     .override(
                                                                       fontFamily:
                                                                           'Outfit',
+                                                                      letterSpacing:
+                                                                          0.0,
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .w600,
@@ -670,7 +727,13 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                             ],
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .headlineMedium,
+                                                                .headlineMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Outfit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                           ),
                                                           textAlign:
                                                               TextAlign.end,
@@ -702,6 +765,7 @@ class _ItineraryWidgetState extends State<ItineraryWidget>
                                                   const Duration(milliseconds: 500),
                                               curve: Curves.ease,
                                             );
+                                            safeSetState(() {});
                                           },
                                           effect: const smooth_page_indicator
                                               .ExpandingDotsEffect(

@@ -9,9 +9,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'create_event_model.dart';
 export 'create_event_model.dart';
 
@@ -19,7 +17,7 @@ class CreateEventWidget extends StatefulWidget {
   const CreateEventWidget({super.key});
 
   @override
-  _CreateEventWidgetState createState() => _CreateEventWidgetState();
+  State<CreateEventWidget> createState() => _CreateEventWidgetState();
 }
 
 class _CreateEventWidgetState extends State<CreateEventWidget> {
@@ -32,16 +30,16 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
     super.initState();
     _model = createModel(context, () => CreateEventModel());
 
-    _model.yourNameController1 ??= TextEditingController();
+    _model.yourNameTextController1 ??= TextEditingController();
     _model.yourNameFocusNode1 ??= FocusNode();
 
-    _model.locController ??= TextEditingController();
+    _model.locTextController ??= TextEditingController();
     _model.locFocusNode ??= FocusNode();
 
-    _model.addressController ??= TextEditingController();
+    _model.addressTextController ??= TextEditingController();
     _model.addressFocusNode ??= FocusNode();
 
-    _model.yourNameController2 ??= TextEditingController();
+    _model.yourNameTextController2 ??= TextEditingController();
     _model.yourNameFocusNode2 ??= FocusNode();
     _model.yourNameFocusNode2!.addListener(
       () async {
@@ -65,7 +63,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
             });
       },
     );
-    _model.myBioController ??= TextEditingController();
+    _model.myBioTextController ??= TextEditingController();
     _model.myBioFocusNode ??= FocusNode();
   }
 
@@ -78,17 +76,6 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
-    context.watch<FFAppState>();
-
     return StreamBuilder<List<EventsRecord>>(
       stream: queryEventsRecord(
         singleRecord: true,
@@ -119,10 +106,9 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
         final createEventEventsRecord = createEventEventsRecordList.isNotEmpty
             ? createEventEventsRecordList.first
             : null;
+
         return GestureDetector(
-          onTap: () => _model.unfocusNode.canRequestFocus
-              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-              : FocusScope.of(context).unfocus(),
+          onTap: () => FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBtnText,
@@ -180,6 +166,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                   fontFamily: 'Outfit',
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
+                                  letterSpacing: 0.0,
                                 ),
                           ),
                         ),
@@ -188,21 +175,31 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 12.0, 20.0, 12.0),
                         child: TextFormField(
-                          controller: _model.yourNameController1,
+                          controller: _model.yourNameTextController1,
                           focusNode: _model.yourNameFocusNode1,
                           autofillHints: const [AutofillHints.name],
                           textCapitalization: TextCapitalization.words,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Event Name',
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
                             errorStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Outfit',
                                   color: FlutterFlowTheme.of(context).error,
+                                  letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -238,9 +235,13 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 12.0, 0.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
                           cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model.yourNameController1Validator
+                          validator: _model.yourNameTextController1Validator
                               .asValidator(context),
                         ),
                       ),
@@ -248,21 +249,31 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 12.0, 20.0, 12.0),
                         child: TextFormField(
-                          controller: _model.locController,
+                          controller: _model.locTextController,
                           focusNode: _model.locFocusNode,
                           autofillHints: const [AutofillHints.name],
                           textCapitalization: TextCapitalization.words,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Location',
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
                             errorStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Outfit',
                                   color: FlutterFlowTheme.of(context).error,
+                                  letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -298,10 +309,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 12.0, 0.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
                           keyboardType: TextInputType.streetAddress,
                           cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model.locControllerValidator
+                          validator: _model.locTextControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -309,21 +324,31 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 12.0, 20.0, 12.0),
                         child: TextFormField(
-                          controller: _model.addressController,
+                          controller: _model.addressTextController,
                           focusNode: _model.addressFocusNode,
                           autofillHints: const [AutofillHints.name],
                           textCapitalization: TextCapitalization.words,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Address',
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
                             errorStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Outfit',
                                   color: FlutterFlowTheme.of(context).error,
+                                  letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -359,10 +384,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 12.0, 0.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
                           keyboardType: TextInputType.streetAddress,
                           cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model.addressControllerValidator
+                          validator: _model.addressTextControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -370,21 +399,31 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 12.0, 20.0, 12.0),
                         child: TextFormField(
-                          controller: _model.yourNameController2,
+                          controller: _model.yourNameTextController2,
                           focusNode: _model.yourNameFocusNode2,
                           autofillHints: const [AutofillHints.name],
                           textCapitalization: TextCapitalization.words,
                           obscureText: false,
                           decoration: InputDecoration(
                             labelText: 'Date',
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
                             errorStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Outfit',
                                   color: FlutterFlowTheme.of(context).error,
+                                  letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -420,10 +459,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 12.0, 0.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
                           keyboardType: TextInputType.datetime,
                           cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model.yourNameController2Validator
+                          validator: _model.yourNameTextController2Validator
                               .asValidator(context),
                         ),
                       ),
@@ -442,10 +485,14 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             'Food'
                           ],
                           onChanged: (val) =>
-                              setState(() => _model.dropDownValue = val),
+                              safeSetState(() => _model.dropDownValue = val),
                           width: double.infinity,
                           height: 44.0,
-                          textStyle: FlutterFlowTheme.of(context).bodyMedium,
+                          textStyle:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
                           hintText: 'Category',
                           icon: Icon(
                             Icons.keyboard_arrow_down_rounded,
@@ -469,20 +516,30 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 12.0, 20.0, 12.0),
                         child: TextFormField(
-                          controller: _model.myBioController,
+                          controller: _model.myBioTextController,
                           focusNode: _model.myBioFocusNode,
                           textCapitalization: TextCapitalization.sentences,
                           obscureText: false,
                           decoration: InputDecoration(
-                            labelStyle:
-                                FlutterFlowTheme.of(context).labelMedium,
+                            labelStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
                             hintText: 'Short Description',
-                            hintStyle: FlutterFlowTheme.of(context).labelMedium,
+                            hintStyle: FlutterFlowTheme.of(context)
+                                .labelMedium
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  letterSpacing: 0.0,
+                                ),
                             errorStyle: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Outfit',
                                   color: FlutterFlowTheme.of(context).error,
+                                  letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: const BorderSide(
@@ -518,11 +575,15 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                             contentPadding: const EdgeInsetsDirectional.fromSTEB(
                                 16.0, 12.0, 0.0, 12.0),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
                           textAlign: TextAlign.start,
                           maxLines: 3,
                           cursorColor: FlutterFlowTheme.of(context).primary,
-                          validator: _model.myBioControllerValidator
+                          validator: _model.myBioTextControllerValidator
                               .asValidator(context),
                         ),
                       ),
@@ -542,7 +603,8 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                               if (selectedMedia != null &&
                                   selectedMedia.every((m) => validateFileFormat(
                                       m.storagePath, context))) {
-                                setState(() => _model.isDataUploading = true);
+                                safeSetState(
+                                    () => _model.isDataUploading = true);
                                 var selectedUploadedFiles = <FFUploadedFile>[];
 
                                 var downloadUrls = <String>[];
@@ -573,13 +635,13 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                         selectedMedia.length &&
                                     downloadUrls.length ==
                                         selectedMedia.length) {
-                                  setState(() {
+                                  safeSetState(() {
                                     _model.uploadedLocalFile =
                                         selectedUploadedFiles.first;
                                     _model.uploadedFileUrl = downloadUrls.first;
                                   });
                                 } else {
-                                  setState(() {});
+                                  safeSetState(() {});
                                   return;
                                 }
                               }
@@ -594,8 +656,12 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context)
                                   .primaryBackground,
-                              textStyle:
-                                  FlutterFlowTheme.of(context).bodyMedium,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Outfit',
+                                    letterSpacing: 0.0,
+                                  ),
                               elevation: 1.0,
                               borderSide: BorderSide(
                                 color: FlutterFlowTheme.of(context).alternate,
@@ -644,6 +710,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                             fontFamily: 'Outfit',
                                             color: FlutterFlowTheme.of(context)
                                                 .info,
+                                            letterSpacing: 0.0,
                                           ),
                                     ),
                                     duration: const Duration(milliseconds: 4000),
@@ -668,6 +735,7 @@ class _CreateEventWidgetState extends State<CreateEventWidget> {
                                       fontFamily: 'Outfit',
                                       color: FlutterFlowTheme.of(context)
                                           .primaryBtnText,
+                                      letterSpacing: 0.0,
                                     ),
                                 elevation: 3.0,
                                 borderSide: const BorderSide(

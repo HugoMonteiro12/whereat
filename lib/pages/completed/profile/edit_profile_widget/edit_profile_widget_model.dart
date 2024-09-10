@@ -13,22 +13,20 @@ class EditProfileWidgetModel extends FlutterFlowModel<EditProfileWidgetWidget> {
 
   // State field(s) for yourName widget.
   FocusNode? yourNameFocusNode;
-  TextEditingController? yourNameController;
-  String? Function(BuildContext, String?)? yourNameControllerValidator;
+  TextEditingController? yourNameTextController;
+  String? Function(BuildContext, String?)? yourNameTextControllerValidator;
   // State field(s) for phonenumber widget.
   FocusNode? phonenumberFocusNode;
-  TextEditingController? phonenumberController;
-  String? Function(BuildContext, String?)? phonenumberControllerValidator;
+  TextEditingController? phonenumberTextController;
+  String? Function(BuildContext, String?)? phonenumberTextControllerValidator;
   // State field(s) for myBio widget.
   FocusNode? myBioFocusNode;
-  TextEditingController? myBioController;
-  String? Function(BuildContext, String?)? myBioControllerValidator;
+  TextEditingController? myBioTextController;
+  String? Function(BuildContext, String?)? myBioTextControllerValidator;
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
   String uploadedFileUrl2 = '';
-
-  /// Initialization and disposal methods.
 
   @override
   void initState(BuildContext context) {}
@@ -36,18 +34,15 @@ class EditProfileWidgetModel extends FlutterFlowModel<EditProfileWidgetWidget> {
   @override
   void dispose() {
     yourNameFocusNode?.dispose();
-    yourNameController?.dispose();
+    yourNameTextController?.dispose();
 
     phonenumberFocusNode?.dispose();
-    phonenumberController?.dispose();
+    phonenumberTextController?.dispose();
 
     myBioFocusNode?.dispose();
-    myBioController?.dispose();
+    myBioTextController?.dispose();
   }
 
-  /// Action blocks are added here.
-
+  /// Action blocks.
   Future teste(BuildContext context) async {}
-
-  /// Additional helper methods are added here.
 }
